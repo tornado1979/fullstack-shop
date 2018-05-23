@@ -13,4 +13,11 @@ router.get('/', (req, res) => {
     {name:'ibm', price: 120}
   ])
 })
+
+router.get('/:productId', (req, res) => {
+  res.json({
+    name: 'lenovo',
+    price: 100,
+  })
+})
 module.exports = router
