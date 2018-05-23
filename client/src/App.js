@@ -8,7 +8,7 @@ class App extends Component {
   }
 
   async callApi() {
-    const response = await fetch('/users')
+    const response = await fetch('/products')
     const body = await response.json()
 
     if(response.status !== 200) {
@@ -20,10 +20,18 @@ class App extends Component {
 
   componentDidMount(){
     this.callApi()
-    .then(res => this.setState({
-      response: res.express,
-    }))
+    .then(res => {
+      return this.setState({
+        response: res,
+      })
+    })
     .catch(err => console.log(err))
+  }
+
+  getProducts(){
+    if(Array.isArray(this.state.response)) {
+      return this.state.response.map((product, idx) => <li key={idx}>{product.name}</li>)
+    }
   }
 
   render() {
@@ -34,7 +42,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
        <div>
-         {this.state.response}
+         <ul>
+           {this.getProducts()}
+         </ul>
        </div>
       </div>
     );
