@@ -4,11 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
+const mongoose = require('mongoose');
+const config = require('./config');
 
-var app = express();
+const  indexRouter = require('./routes/index');
+const  usersRouter = require('./routes/users');
+const  productsRouter = require('./routes/products');
+const storesRouter = require('./routes/stores')
+
+// Set up Mongoose
+/*const isDev = process.env.NODE_ENV !== 'production';
+mongoose.connect(isDev ? config.db_dev : config.db);*/
+mongoose.connect(config.db) // db=Heroku  db_dev= local mongodb
+
+mongoose.Promise = global.Promise;
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/stores', storesRouter)
 
 
 // The "catchall" handler: for any request that doesn't
