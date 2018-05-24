@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const Store = require('../models/products')
+const Store = require('../models/store')
 
 // middleware specific to this router
 router.use((req, res, next) => {

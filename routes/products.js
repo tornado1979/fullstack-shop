@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const Product = require('../models/store')
+const Product = require('../models/product')
 
 // middleware specific to this router
 router.use((req, res, next) => {
@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   Product.find()
   .exec()
-  .then((store) => res.json(store))
+  .then((product) => res.json(product))
   .catch((err) => next(err));
 })
 
