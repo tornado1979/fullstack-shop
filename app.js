@@ -15,7 +15,7 @@ const storesRouter = require('./routes/stores')
 // Set up Mongoose
 /*const isDev = process.env.NODE_ENV !== 'production';
 mongoose.connect(isDev ? config.db_dev : config.db);*/
-mongoose.connect(config.db) // db=Heroku  db_dev= local mongodb
+mongoose.connect(config.db_dev) // db=Heroku  db_dev= local mongodb
 
 mongoose.Promise = global.Promise;
 
