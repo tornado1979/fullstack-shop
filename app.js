@@ -19,7 +19,7 @@ mongoose.connect(isDev ? config.db_dev : config.db);*/
 // db=Heroku  db_dev= local mongodb
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
-mongoose.connect(config.db_dev, function (err, res) {
+mongoose.connect(config.db, function (err, res) {
   if (err) { 
     console.log ('ERROR connecting to: ' + config.db + '. ' + err);
   } else {
