@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   async callApi() {
-    const response = await fetch(`${server}/products`)
+    const response = await fetch(`/products`)
     const body = await response.json()
 
     if(response.status !== 200) {
