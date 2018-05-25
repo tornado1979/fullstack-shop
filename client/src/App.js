@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   async callApi() {
-    const response = await fetch(`${server}/users`)
+    const response = await fetch(`${server}/products`)
     const body = await response.json()
 
     if(response.status !== 200) {
@@ -30,6 +30,7 @@ class App extends Component {
   }
 
   getProducts(){
+    console.log('inside products')
     if(Array.isArray(this.state.response)) {
       return this.state.response.map((product, idx) => <li key={idx}>{product.name}</li>)
     }
