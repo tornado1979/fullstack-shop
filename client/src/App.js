@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const server = 'https://damp-brook-72767.herokuapp.com'
+const server = 'https://damp-brook-72767.herokuapp.com' // Heroku deployed application url
 class App extends Component {
   state = {
     response: '',
