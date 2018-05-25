@@ -54,8 +54,6 @@
   "engines": {
     "node": "8.9.4"
   },
-  "proxy": "https://damp-brook-72767.herokuapp.com/",
-  "homepage": "https://tornado1979.github.io/fullstack-shop/",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"

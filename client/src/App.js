@@ -9,7 +9,7 @@ class App extends Component {
   }
 
   async callApi() {
-    const response = await fetch(`${server}/products`)
+    const response = await fetch(`${server}/users`)
     const body = await response.json()
 
     if(response.status !== 200) {
@@ -44,6 +44,7 @@ class App extends Component {
         </header>
        <div>
          <ul>
+           <li>theodore</li>
            {this.getProducts()}
          </ul>
        </div>
