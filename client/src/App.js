@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const server = 'https://damp-brook-72767.herokuapp.com'
 class App extends Component {
   state = {
     response: '',
   }
 
   async callApi() {
-    const response = await fetch('/products')
+    const response = await fetch(`${server}/products`)
     const body = await response.json()
 
     if(response.status !== 200) {

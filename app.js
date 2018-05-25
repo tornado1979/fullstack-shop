@@ -15,7 +15,17 @@ const storesRouter = require('./routes/stores')
 // Set up Mongoose
 /*const isDev = process.env.NODE_ENV !== 'production';
 mongoose.connect(isDev ? config.db_dev : config.db);*/
-mongoose.connect(config.db_dev) // db=Heroku  db_dev= local mongodb
+
+// db=Heroku  db_dev= local mongodb
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(config.db_dev, function (err, res) {
+  if (err) { 
+    console.log ('ERROR connecting to: ' + config.db + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + config.db);
+  }
+});
 
 mongoose.Promise = global.Promise;
 
