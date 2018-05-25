@@ -18,6 +18,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "engines": {
+    "node": "8.9.4"
+  },
   "proxy": "https://damp-brook-72767.herokuapp.com/",
   "homepage": "https://tornado1979.github.io/fullstack-shop/"
 }
