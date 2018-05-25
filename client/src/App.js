@@ -44,8 +44,8 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
        <div>
+         <p>Data from backend: expressjs + mondoDB!</p>
          <ul>
-           <li>theodore</li>
            {this.getProducts()}
          </ul>
        </div>
