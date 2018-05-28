@@ -8,6 +8,10 @@ const ProductSchema = new mongoose.Schema({
   description: {
     type: String,
     default: '',
+  },
+  updated_at: {
+    type: String,
+    default: Date.now,
   }
 });
 

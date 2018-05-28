@@ -9,6 +9,15 @@ router.use((req, res, next) => {
   next()
 })
 
+router.get('/:productId', (req, res, next) => {
+  Product.findById(req.params.productId, (err, post) => {
+    if(err) return next(err)
+    res.json(post)
+  })
+  
+})
+
+// Get all products
 router.get('/', (req, res) => {
   Product.find()
   .exec()
@@ -16,10 +25,12 @@ router.get('/', (req, res) => {
   .catch((err) => next(err));
 })
 
-router.get('/:productId', (req, res) => {
-  res.json({
-    name: 'lenovo',
-    description: "fixed json object",
-  })
+// Add new product
+router.post('/add', (req, res) => {
+  Product.create(req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 })
+
 module.exports = router
