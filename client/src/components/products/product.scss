@@ -1,0 +1,23 @@
+$border: lightgray;
+
+.products-wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.product {
+  min-width: 150px;
+  flex: 1 22%;
+  padding: 5px;
+  text-align: center;
+  margin: auto 10px;
+  box-sizing: border-box;
+  border: 1px solid $border;
+  border-radius: 4px;
+  & .product-img {
+    max-width: 50%;
+    margin: auto;
+  }
+}

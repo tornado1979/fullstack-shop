@@ -1,57 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react'
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom'
 
-const server = 'https://damp-brook-72767.herokuapp.com' // Heroku deployed application url
-class App extends Component {
-  state = {
-    response: '',
-  }
+import './App.scss'
 
-  async callApi() {
-    const response = await fetch(`/products`)
-    const body = await response.json()
+import { Header } from './components/header/header'
+import { Footer } from './components/footer/footer'
+import { Routes } from './components/routes/routes'
 
-    if(response.status !== 200) {
-      throw Error(body.message)
-    }
-
-    return body
-  }
-
-  componentDidMount(){
-    this.callApi()
-    .then(res => {
-      return this.setState({
-        response: res,
-      })
-    })
-    .catch(err => console.log(err))
-  }
-
-  getProducts(){
-    console.log('inside products')
-    if(Array.isArray(this.state.response)) {
-      return this.state.response.map((product, idx) => <li key={idx}>{product.name}</li>)
-    }
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-       <div>
-         <p>Data from backend: expressjs + mondoDB!</p>
-         <ul>
-           {this.getProducts()}
-         </ul>
-       </div>
-      </div>
-    );
-  }
+// const server = 'https://damp-brook-72767.herokuapp.com' // Heroku deployed application url
+const App = () => {
+  return (
+    <div className="App">
+      <Router>
+        <Fragment>
+          <Header />
+          <Routes />
+          <Footer
+            bgTemplate="template1"
+          />
+        </Fragment>
+      </Router>
+    </div>
+  )
 }
 
-export default App;
+export default App

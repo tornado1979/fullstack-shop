@@ -1,0 +1,184 @@
+
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+
+//Color Variables
+$color1: #959E05; // Menu hover underline
+$color2: #ececec; // Open menu background
+$color3: #959E05; // Open menu button
+$color4: #000; // Menus border-bottom
+$color5: #000; // font color black
+$color6: #fff; //  header bg
+$color7: #707070; // menu fonts color
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Tahoma;
+  color: $color7;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.App {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.navBar {
+  flex: 1 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 90px;
+  max-width:80%;
+  flex-flow: row nowrap;
+}
+
+header {
+  background-color: $color6;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  min-width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 1;
+}
+
+.menu {
+  flex: 45%;
+  text-align: right;
+  margin: auto;
+  justify-content: flex-end;
+
+  & a {
+    color: $color7;
+    padding: 10px;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+  
+    &:hover {
+      border-bottom: 2px solid $color1;  
+    }
+  }
+}
+
+.logo {
+  flex: 15%;
+  margin-right: auto;
+  background-image: url('./assets/img/logo-bg.png');
+  background-repeat: no-repeat;
+  width: 300px;
+  background-position: left;
+  background-size: 170px;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+#menu-toggle:checked~ .menu {
+    opacity: 1;
+    display: flex;
+}
+
+#menu-toggle:checked~ {
+  & .label-toggle {
+    position: relative;
+    top: 28px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+  }
+
+  & .label-toggle:before, .label-toggle:after {
+    display:inline-block;
+    position: absolute;
+    left: 15px;
+    content:' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+
+  & .label-toggle:before {
+    top: -28px;
+    transform: rotate(45deg);
+  }
+  
+  & .label-toggle:after {
+    top: 0px;
+    transform: rotate(-45deg);
+  }
+}
+
+// Hide menu 'X' button
+@media screen and (min-width: 780px) {
+  .label-toggle:before, .label-toggle:after {
+    display: none !important;
+  }
+}
+
+// Medium screens, show menu button
+@media screen and (max-width: 780px) {
+  .navBar {
+    flex-flow: row wrap;
+  }
+
+  .label-toggle {
+    cursor: pointer;
+  }
+
+  header {
+
+    & .menu {
+        display: none;
+        flex-flow: column;
+        justify-content: flex-start;
+        flex: 1 100%;
+        text-align: center;
+        background-color: $color2;
+        height: 100vh;
+        & a {
+          border-bottom: 1px solid $color4;
+          color: $color5;
+          display: block;
+          width: 100%;
+          padding: 10px 0;
+        }
+    }
+  }
+
+  .label-toggle:before {
+    background: linear-gradient(to bottom, $color3 0%, $color3 20%, transparent 20%, transparent 40%, $color3 40%, $color3 60%, transparent 60%, transparent 80%, $color3 80%, $color3 100%); //Gradient Hamburger
+    content: ' ';
+    display: block;
+    height: 35px;
+    margin-top: 28px;
+    width: 35px;
+    visibility: visible;
+  }
+
+  .logo {
+    margin-right: auto;
+    background-image: url('./assets/img/logo-sm.png');
+    background-repeat: no-repeat;
+    width: 110px;
+    height: 90px;
+    background-position: left;
+    background-size: 76px;
+  }
+
+}
+
+// images always width: 100%, inside their conteiner
+img {
+  width: 100%;
+}
