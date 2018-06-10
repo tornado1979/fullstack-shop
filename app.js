@@ -13,17 +13,16 @@ const  productsRouter = require('./routes/products');
 const storesRouter = require('./routes/stores')
 
 // Set up Mongoose
-/*const isDev = process.env.NODE_ENV !== 'production';
-mongoose.connect(isDev ? config.db_dev : config.db);*/
+const dbconn = process.env.NODE_ENV === 'production' ? config.db : config.db_dev;
 
 // db=Heroku  db_dev= local mongodb
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
-mongoose.connect(config.db_dev, function (err, res) {
+mongoose.connect(dbconn, function (err, res) {
   if (err) { 
-    console.log ('ERROR connecting to: ' + config.db_dev + '. ' + err);
+    console.log ('ERROR connecting to: ' + dbconn + '. ' + err);
   } else {
-    console.log ('Succeeded connected to: ' + config.db_dev);
+    console.log ('Succeeded connected to: ' + dbconn);
   }
 });
 
@@ -43,14 +42,13 @@ app.use(cookieParser());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// Serve static files from express app
-// Add a virtual path point to real path 'public/images/products'
-app.use('/pr', express.static('public/images/products'));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/stores', storesRouter)
+// Serve static files from express app
+// Add a virtual path point to real path 'public/images/products'
+app.use('/pr', express.static('public/images/products'));
 
 
 // The "catchall" handler: for any request that doesn't
