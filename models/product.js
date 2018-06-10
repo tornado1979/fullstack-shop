@@ -9,6 +9,10 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  path: {
+    type: String,
+    default: 'pr/default.jpeg',
+  },
   updated_at: {
     type: String,
     default: Date.now,
