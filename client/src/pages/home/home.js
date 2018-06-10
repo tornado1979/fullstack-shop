@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { Product } from '../../components/products/product'
 import './home.scss'
 import '../../components/products/product.scss'
+import config from '../../clientConfig'
+
+const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
 
 class Home extends Component {
   state = {
@@ -10,7 +13,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    console.log('component mounted') // eslint-disable-line
     this.callApi()
       .then(res => {
         this.setState({
@@ -30,7 +32,7 @@ class Home extends Component {
             description={product.description}
             key={product._id} // eslint-disable-line
             name={product.name}
-            path={product.path}
+            path={`${server}${product.path}`}
           />
         )
       })
@@ -39,7 +41,7 @@ class Home extends Component {
   }
 
   async callApi() {
-    const response = await fetch('/products')
+    const response = await fetch(`${server}products`)
     const body = await response.json()
 
     if (response.status !== 200) {
