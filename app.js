@@ -19,11 +19,11 @@ mongoose.connect(isDev ? config.db_dev : config.db);*/
 // db=Heroku  db_dev= local mongodb
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
-mongoose.connect(config.db, function (err, res) {
+mongoose.connect(config.db_dev, function (err, res) {
   if (err) { 
-    console.log ('ERROR connecting to: ' + config.db + '. ' + err);
+    console.log ('ERROR connecting to: ' + config.db_dev + '. ' + err);
   } else {
-    console.log ('Succeeded connected to: ' + config.db);
+    console.log ('Succeeded connected to: ' + config.db_dev);
   }
 });
 
@@ -42,6 +42,10 @@ app.use(cookieParser());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Serve static files from express app
+// Add a virtual path point to real path 'public/images/products'
+app.use('/pr', express.static('public/images/products'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
