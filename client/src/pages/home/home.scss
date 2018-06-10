@@ -1,0 +1,56 @@
+$horizontal-color: #99ce58; // horizontalBlock bg
+
+main {
+  min-width:450px;
+  max-width: 80%;
+  margin-top: 90px;
+  display: flex;
+  width: 80%;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.clientsBlock {
+  padding:10px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  width: 100%;
+  align-items: center;
+}
+
+.horizontalBlock {
+  width: 100%;
+  padding: 10px 0;
+  &.with-subblocks {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    & .panel {
+      flex: 1;
+    }
+  }
+}
+
+.right-column {
+  display: inline-block;
+  float: left;
+  margin: 0 0 0 20px;
+  text-align: left;
+}
+
+@media screen and (max-width: 400px){
+  .clientsBlock {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 570px){
+  .horizontalBlock {
+
+    &.with-subblocks {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
