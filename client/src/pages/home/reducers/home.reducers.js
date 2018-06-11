@@ -28,7 +28,10 @@ export const reducer = (state = initialState, action) => {
         isFetching: false,
       }
     case RECEIVE_PRODUCTS_FAIL:
-      return state
+      return {
+        ...state,
+        error: action.payload,
+      }
     default:
       return state
   }

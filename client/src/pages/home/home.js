@@ -62,7 +62,6 @@ class Home extends Component {
   */
 
   getAllProducts(products) {
-    console.log('get products', products)
     if (products.length > 0) {
       return products.map(product => {
         return (
