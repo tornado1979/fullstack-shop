@@ -2,14 +2,14 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 // reducers
 import { reducer as products } from './pages/home/reducers/home.reducers'
+// middlewares
+import logger from './middlewares/logger'
 
 // Initial state
 const initialState = {
-  products: {},
-  sort: {
-    sortOrder: 'POPULARITY',
-    sortType: 'desc',
-  },
+  error: '',
+  isFetching: false,
+  products: [],
 }
 
 const enhancers = []
@@ -18,6 +18,7 @@ const middleware = [
 ]
 
 if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger)
   const devToolsExtension = window.devToolsExtension // eslint-disable-line prefer-destructuring
 
   if (typeof devToolsExtension === 'function') {
@@ -35,5 +36,5 @@ const store = createStore(
   initialState,
   composedEnhancers,
 )
-console.log('store', store.getState())
+
 export default store
