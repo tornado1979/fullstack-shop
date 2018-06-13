@@ -6,7 +6,9 @@ import {
 } from '../actions/home.actions'
 
 const initialState = {
-
+  error: '',
+  isFetching: false,
+  items: [],
 }
 
 export const reducer = (state = initialState, action) => {
@@ -15,12 +17,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.payload.isFetching,
-        products: action.payload.products,
+        items: action.payload.products,
       }
     case RECEIVE_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        items: action.payload,
       }
     case RECEIVE_PRODUCTS_SUCCESS:
       return {

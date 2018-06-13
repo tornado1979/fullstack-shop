@@ -1,15 +1,21 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+
 // reducers
 import { reducer as products } from './pages/home/reducers/home.reducers'
+import { reducers as cart } from './container/cart/reducers/cart.reducers'
+
 // middlewares
 import logger from './middlewares/logger'
 
 // Initial state
 const initialState = {
-  error: '',
-  isFetching: false,
-  products: [],
+  cart: {
+    items: [],
+  },
+  products: {
+    items: [],
+  },
 }
 
 const enhancers = []
@@ -32,7 +38,10 @@ const composedEnhancers = compose(
 )
 
 const store = createStore(
-  products,
+  combineReducers({
+    cart,
+    products,
+  }),
   initialState,
   composedEnhancers,
 )
