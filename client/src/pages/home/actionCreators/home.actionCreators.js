@@ -1,3 +1,5 @@
+import fetch from 'cross-fetch'
+
 import {
   REQUEST_PRODUCTS,
   RECEIVE_PRODUCTS,
