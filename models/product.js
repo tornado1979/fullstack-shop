@@ -13,6 +13,10 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     default: 'pr/default.jpeg',
   },
+  price: {
+    type: Number,
+    default: 0,
+  },
   updated_at: {
     type: String,
     default: Date.now,
