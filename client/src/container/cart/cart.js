@@ -13,13 +13,13 @@ import { bindActionCreators } from 'redux'
 import {
   removeItemFromCart,
   updateCartItem,
-} from '../../container/cart/actionCreators/cart.actionCreatros'
+} from './actionCreators/cart.actionCreatros'
 
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
 
 import { Select } from '../../components/select'
 
-import './modal.scss'
+import './cart.scss'
 import emptyCart from '../../assets/img/empty-cart.png'
 
 function getModalStyle() {
@@ -43,7 +43,7 @@ const styles = theme => ({
   },
 })
 
-class SimpleModal extends React.Component {
+class Cart extends React.Component {
   state = {
     open: false,
   }
@@ -143,7 +143,7 @@ class SimpleModal extends React.Component {
   }
 }
 
-SimpleModal.propTypes = {
+Cart.propTypes = {
   classes: propTypes.shape().isRequired,
   orderItems: propTypes.shape().isRequired,
   removeItemFromCart: propTypes.func.isRequired,
@@ -161,5 +161,5 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 
 // We need an intermediary variable for handling the recursive nesting.
-export const ModalWrapped =
-  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SimpleModal))
+export const CartWrapped =
+  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Cart))

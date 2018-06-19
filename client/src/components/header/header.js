@@ -5,7 +5,7 @@ import propTypes from 'prop-types'
 import Badge from '@material-ui/core/Badge'
 
 import { getCartItems } from '../../container/cart/selectors/cart.selectors'
-import { ModalWrapped } from '../../components/modal'
+import { CartWrapped } from '../../container/cart'
 
 const Header = ({ cartItems }) => {
   const hasItems = !!cartItems.length
@@ -49,9 +49,9 @@ const Header = ({ cartItems }) => {
           <div style={{ display: 'inline-block' }}>
             {hasItems &&
             <Badge badgeContent={cartItems.length} color="secondary">
-              <ModalWrapped />
+              <CartWrapped />
             </Badge>}
-            {!hasItems && <ModalWrapped />}
+            {!hasItems && <CartWrapped />}
           </div>
         </div>
       </nav>
