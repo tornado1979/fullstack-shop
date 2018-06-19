@@ -7,6 +7,9 @@ import {
   RECEIVE_PRODUCTS_FAIL,
 } from '../actions/home.actions'
 
+// import config from '../../../clientConfig'
+// const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
+
 export const requestProducts = () => {
   return {
     payload: {
@@ -47,6 +50,7 @@ export const fetchProducts = () => async (dispatch) => {
   let result
 
   try {
+    // response = await fetch(`${server}products`)
     response = await fetch('products')
     result = await response.json()
     await dispatch(receiveProducts(result))

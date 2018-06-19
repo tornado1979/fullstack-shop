@@ -3,73 +3,53 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import propTypes from 'prop-types'
 
-import { Product } from '../../components/products/product'
+import Product from '../../components/products/product'
 import './home.scss'
 import '../../components/products/product.scss'
 import config from '../../clientConfig'
 
 import { getProducts } from './selectors/home.selectors'
 import { fetchProducts } from './actionCreators/home.actionCreators'
+import { addItemToCart } from '../../container/cart/actionCreators/cart.actionCreatros'
+import { getOrderItems } from '../../globalSelectors/globalSelectors'
 
 const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+    this.addItem = this.addItem.bind(this)
+  }
+
   componentDidMount() {
     this.props.fetchProducts()
   }
-  /* state = {
-    products: [],
+
+  addItem(val) { // eslint-disable-line
+    this.props.addItemToCart(val)
   }
 
+  checkItem(val) {
+    const { orderItems } = this.props
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => {
-        this.setState({
-          products: res,
-        })
-      })
-      .catch(err => {
-        console.error(err) // eslint-disable-line
-      })
+    return orderItems.some(item => item.productId === val)
+
+    /* const res = this.props.isItemOnCartt(val)()
+    return res */
   }
-
-  getProducts() {
-    if (this.state.products.length > 0) {
-      return this.state.products.map(product => {
-        return (
-          <Product
-            description={product.description}
-            key={product._id} // eslint-disable-line
-            name={product.name}
-            path={`${server}${product.path}`}
-          />
-        )
-      })
-    }
-    return false
-  }
-
-  async callApi() {
-    const response = await fetch('products')
-    const body = await response.json()
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body
-  }
-  */
 
   getAllProducts(products) {
     if (products.length > 0) {
       return products.map(product => {
         return (
           <Product
+            click={this.addItem}
             description={product.description}
-            key={product._id} // eslint-disable-line
+            isItemOnBasket={this.checkItem(product._id)}
+            key={product._id}
             name={product.name}
             path={`${server}${product.path}`}
+            productId={product._id}
           />
         )
       })
@@ -93,17 +73,21 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  addItemToCart: propTypes.func.isRequired,
   fetchProducts: propTypes.func.isRequired,
+  orderItems: propTypes.array.isRequired, // eslint-disable-line
   products: propTypes.array.isRequired, // eslint-disable-line
 }
 
 const mapStateToProps = (state) => (
   {
+    orderItems: getOrderItems(state),
     products: getProducts(state),
   }
 )
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  addItemToCart: (item) => addItemToCart(item),
   fetchProducts,
 }, dispatch)
 
