@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
+  productId: {
+    type: String,
+    default:'',
+  },
   name: {
     type: String,
     default: '',
@@ -20,7 +24,7 @@ const cartSchema = new mongoose.Schema({
 });
 
 cartSchema.post('find', (docs) => {
-  console.log('this fired after you run find query')
+  console.log('this fired after run find query')
 });
 
 module.exports = mongoose.model('Cart', cartSchema);
