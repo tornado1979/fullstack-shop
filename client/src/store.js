@@ -8,6 +8,9 @@ import { reducers as cart } from './container/cart/reducers/cart.reducers'
 // middlewares
 import logger from './middlewares/logger'
 
+// actionCreators
+import { fetchCart } from './container/cart/actionCreators/cart.actionCreatros'
+
 // Initial state
 const initialState = {
   cart: {
@@ -45,5 +48,7 @@ const store = createStore(
   initialState,
   composedEnhancers,
 )
+
+store.dispatch(fetchCart())
 
 export default store
