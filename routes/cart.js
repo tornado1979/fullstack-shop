@@ -21,14 +21,33 @@ router.post('/add', (req,res,next) => {
 });
 
 /* POST remove item from cart */
-router.post('/remove/:productId', (req, res, next) => {
-  const productId = req.params.productId;
-  Cart.deleteOne({_id: productId}, (err, post) => {
+router.post('/remove/', (req, res, next) => {
+  const cartId = req.body.cartId;
+  Cart.deleteOne({_id: cartId}, (err, post) => {
     if(err) {
       return next(err)
     }
     res.json(post)
   })
-
 })
+
+/* POST update item on cart */
+router.post('/update/', (req, res, next) => {
+  // Get _id & quantity from the item we want to update
+  const _id = req.body._id;
+  const quantity = req.body.quantity
+
+  // Find cartItem
+  Cart.findById(_id, function(err, cartItem) {
+    if (err) return handleError(err);
+
+    cartItem.set({quantity})
+    cartItem.save(function(err, updateCartItem) {
+      if (err) return handleError(err);
+
+      res.send(updateCartItem);
+    })
+  })
+})
+
 module.exports = router;
