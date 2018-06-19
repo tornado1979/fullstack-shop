@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import './App.scss'
 
-import { Header } from './components/header/header'
+import Header from './components/header/header'
 import { Footer } from './components/footer/footer'
 import { Routes } from './components/routes/routes'
 
