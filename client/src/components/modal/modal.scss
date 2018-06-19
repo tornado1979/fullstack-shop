@@ -1,0 +1,31 @@
+.cart-items {
+  padding-left: 0;
+}
+
+.item {
+  width: 37%;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.total-price {
+  display: inline-block;
+  width: 13%;
+
+  & .material-icons.MuiIcon-root-31 {
+    font-size: 18px;
+    vertical-align: sub;
+  }
+}
+
+.quantity {
+  width: 15%;
+  display: inline-block;
+}
+
+.remove {
+  width: 34%;
+  display: inline-block;
+  text-align: center;
+}

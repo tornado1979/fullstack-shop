@@ -1,7 +1,14 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import propTypes from 'prop-types'
+import Badge from '@material-ui/core/Badge'
 
-export const Header = () => {
+import { getCartItems } from '../../container/cart/selectors/cart.selectors'
+import { ModalWrapped } from '../../components/modal'
+
+const Header = ({ cartItems }) => {
+  const hasItems = !!cartItems.length
   return (
     <header>
       <nav className="navBar">
@@ -39,8 +46,25 @@ export const Header = () => {
             to="/contact"
           >Contact us
           </NavLink>
+          <div style={{ display: 'inline-block' }}>
+            {hasItems &&
+            <Badge badgeContent={cartItems.length} color="secondary">
+              <ModalWrapped />
+            </Badge>}
+            {!hasItems && <ModalWrapped />}
+          </div>
         </div>
       </nav>
     </header>
   )
 }
+
+Header.propTypes = {
+  cartItems: propTypes.array.isRequired, // eslint-disable-line
+}
+
+const mapStateToProps = (state) => ({
+  cartItems: getCartItems(state),
+})
+
+export default connect(mapStateToProps, null)(Header)

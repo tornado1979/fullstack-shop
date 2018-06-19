@@ -1,4 +1,6 @@
 $border: lightgray;
+$green: #4CAF50;
+$grey: lightgrey;
 
 .products-wrapper {
   width: 100%;
@@ -8,6 +10,8 @@ $border: lightgray;
 }
 
 .product {
+  display: flex;
+  flex-flow: column wrap;
   min-width: 230px;
   max-width: 25%;
   flex: 1 25%;
@@ -17,8 +21,25 @@ $border: lightgray;
   box-sizing: border-box;
   border: 1px solid $border;
   border-radius: 4px;
+
   & .product-img {
-    max-width: 50%;
     margin: auto;
+  }
+
+  & .add-to-cart {
+    border-top: 1px solid $border;
+    padding: 10px;
+
+    button {
+      background-color: $green;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+    }
   }
 }
