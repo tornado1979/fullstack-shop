@@ -7,10 +7,11 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config');
 
-const  indexRouter = require('./routes/index');
-const  usersRouter = require('./routes/users');
-const  productsRouter = require('./routes/products');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const productsRouter = require('./routes/products');
 const storesRouter = require('./routes/stores')
+const cartRouter = require('./routes/cart')
 
 // Set up Mongoose
 const dbconn = process.env.NODE_ENV === 'production' ? config.db : config.db_dev;
@@ -49,7 +50,7 @@ app.use('/stores', storesRouter)
 // Serve static files from express app
 // Add a virtual path point to real path 'public/images/products'
 app.use('/pr', express.static('public/images/products'));
-
+app.use('/cart', cartRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
