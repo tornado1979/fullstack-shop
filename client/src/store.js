@@ -1,15 +1,21 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
+// form reducers
+import { reducer as formReducer } from 'redux-form'
+
 // reducers
 import { reducer as products } from './pages/home/reducers/home.reducers'
 import { reducers as cart } from './container/cart/reducers/cart.reducers'
+import { reducers as snackbar } from './components/snackbar/reducers/snackbar.reducers'
 
 // middlewares
 import logger from './middlewares/logger'
+import { handleSnackBar } from './middlewares/snackbar'
 
 // actionCreators
-import { fetchCart } from './container/cart/actionCreators/cart.actionCreatros'
+import { fetchCart } from './container/cart/actionCreators/cart.actionCreators'
+
 
 // Initial state
 const initialState = {
@@ -19,10 +25,15 @@ const initialState = {
   products: {
     items: [],
   },
+  snackbar: {
+    message: '',
+    open: false,
+  },
 }
 
 const enhancers = []
 const middleware = [
+  handleSnackBar,
   thunk,
 ]
 
@@ -43,11 +54,17 @@ const composedEnhancers = compose(
 const store = createStore(
   combineReducers({
     cart,
+    form: formReducer,
     products,
+    snackbar,
   }),
   initialState,
   composedEnhancers,
 )
+
+store.subscribe(() => {
+  console.log('[Subscription]', store.getState())
+})
 
 store.dispatch(fetchCart())
 
