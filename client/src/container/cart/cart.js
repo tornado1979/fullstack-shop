@@ -1,3 +1,5 @@
+// jshint proto: false
+
 import React from 'react'
 import propTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -9,6 +11,8 @@ import Button from '@material-ui/core/Button'
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+
+import { withRouter } from 'react-router'
 
 import {
   removeItemFromCart,
@@ -39,13 +43,32 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     position: 'absolute',
-    width: theme.spacing.unit * 50,
+    width: theme.spacing.unit * 60,
   },
 })
 
 class Cart extends React.Component {
   state = {
     open: false,
+  }
+
+  componentDidMount() {
+    console.log('component did mount')
+    console.log(this.props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('next props', nextProps)
+    console.log('next state', nextState)
+    return true
+  }
+
+  componentWillUpdate() {
+    console.log('component will update')
+  }
+
+  componentDidUpdate() {
+    console.log('component did update')
   }
 
   handleOpen = () => {
@@ -56,12 +79,23 @@ class Cart extends React.Component {
     this.setState({ open: false })
   }
 
+  redirect = (path) => {
+    const {
+      history,
+    } = this.props
+
+    // close cart modal
+    this.handleClose()
+
+    // redirect use to /checkout page
+    history.push(path)
+  }
+
   removeItemFromCart(id) {
     this.props.removeItemFromCart({ cartId: id })
   }
 
   updateCartItem(item, event) {
-    console.log('update', item, event.target.value)
     const newQuantity = event.target.value
 
     this.props.updateCartItem({
@@ -126,7 +160,7 @@ class Cart extends React.Component {
                   {cartItems}
                 </ul>
                 <div style={{ textAlign: 'right' }}>
-                  <Button color="primary" variant="contained">Checkout</Button>
+                  <Button color="primary" onClick={(ev) => this.redirect('/checkout', ev)} variant="contained">Checkout</Button>
                 </div>
               </span>}
             {cartItems.length === 0 &&
@@ -145,6 +179,7 @@ class Cart extends React.Component {
 
 Cart.propTypes = {
   classes: propTypes.shape().isRequired,
+  history: propTypes.shape().isRequired, // eslint-disable-line
   orderItems: propTypes.shape().isRequired,
   removeItemFromCart: propTypes.func.isRequired,
   updateCartItem: propTypes.func.isRequired,
@@ -162,4 +197,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 // We need an intermediary variable for handling the recursive nesting.
 export const CartWrapped =
-  connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Cart))
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(Cart)))

@@ -104,7 +104,7 @@ export const addItemToCart = (payload) => async (dispatch) => {
 
 export const updateCartItem = (payload) => async (dispatch) => {
   try {
-    // const server = await fetch(`${server}cart/update`)
+    // const response = await fetch(`${server}cart/update`,
     const response = await fetch('cart/update',
       {
         body: JSON.stringify(payload),
@@ -128,7 +128,7 @@ export const updateCartItem = (payload) => async (dispatch) => {
 
 export const removeItemFromCart = (payload) => async (dispatch) => {
   try {
-    // const server = await fetch(`${server}cart/remove`)
+    // const response = await fetch(`${server}cart/remove`,
     const response = await fetch('cart/remove',
       {
         body: JSON.stringify(payload),
