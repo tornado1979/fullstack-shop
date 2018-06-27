@@ -1,0 +1,15 @@
+main {
+  min-width:450px;
+  max-width: 80%;
+  margin-top: 90px;
+  display: flex;
+  width: 80%;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 20px;
+}
