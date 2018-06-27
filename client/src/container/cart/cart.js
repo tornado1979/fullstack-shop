@@ -17,7 +17,7 @@ import { withRouter } from 'react-router'
 import {
   removeItemFromCart,
   updateCartItem,
-} from './actionCreators/cart.actionCreatros'
+} from './actionCreators/cart.actionCreators'
 
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
 

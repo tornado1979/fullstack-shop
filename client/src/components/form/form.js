@@ -61,7 +61,6 @@ const renderSelectField = ({
 }
 
 const validate = formValues => {
-  console.log('validate form')
   let errors = {} // eslint-disable-line
   const requiredFields = [
     'firstName',
