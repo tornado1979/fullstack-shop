@@ -1,0 +1,35 @@
+.order-wrapper {
+  max-width: 80%;
+  margin: 5px auto;
+  padding: 20px;
+  background-color: white;
+
+  table {
+    width: 100%;
+
+    th:first-child {
+      text-align: left;
+    }
+
+    td {
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    td:first-child {
+      display: table-cell;
+      width: 80%;
+    }
+
+    td:nth-child(2),
+    td:nth-child(3) {
+      display: table-cell;
+      width: 10%;
+      text-align:center;
+    }
+
+    tr:last-child td {
+      border-top: 2px solid #ccc;
+    }
+  }
+
+}
