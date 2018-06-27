@@ -1,6 +1,14 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import classnames from 'classnames'
+import { connect } from 'react-redux'
+
+import {
+  getMessage,
+  isSnackBarOpen,
+} from '../../components/snackbar/selectors/snackbar.selectors'
+
+import WrapperSnackBar from '../../components/snackbar/snackbar'
 
 import './footer.scss'
 import { MainBlock } from '../mainBlock'
@@ -12,7 +20,7 @@ import {
   socialData,
 } from '../../data/footerData'
 
-export const Footer = ({ bgTemplate }) => {
+const Footer = ({ bgTemplate, open, snackBarMessage }) => {
   const footerClass = classnames({
     [`bg--${bgTemplate}`]: true,
   })
@@ -120,10 +128,25 @@ export const Footer = ({ bgTemplate }) => {
         {socialBlocks}
         {copywriteBlock}
       </MainBlock>
+      <WrapperSnackBar
+        message={snackBarMessage}
+        open={open}
+      />
     </footer>
   )
 }
 
 Footer.propTypes = {
   bgTemplate: propTypes.string.isRequired,
+  open: propTypes.bool.isRequired,
+  snackBarMessage: propTypes.string.isRequired,
 }
+
+const mapStateToProps = (state) => (
+  {
+    open: isSnackBarOpen(state),
+    snackBarMessage: getMessage(state),
+  }
+)
+
+export default connect(mapStateToProps)(Footer)

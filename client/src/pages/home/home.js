@@ -13,13 +13,6 @@ import { fetchProducts } from './actionCreators/home.actionCreators'
 import { addItemToCart } from '../../container/cart/actionCreators/cart.actionCreators'
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
 
-import {
-  getMessage,
-  isSnackBarOpen,
-} from '../../components/snackbar/selectors/snackbar.selectors'
-
-import WrapperSnackBar from '../../components/snackbar/snackbar'
-
 const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
 
 class Home extends Component {
@@ -66,8 +59,6 @@ class Home extends Component {
 
   render() {
     const {
-      open,
-      snackBarMessage,
       products,
     } = this.props
 
@@ -75,10 +66,6 @@ class Home extends Component {
       <main>
         <div className="products-wrapper">
           {this.getAllProducts(products)}
-          <WrapperSnackBar
-            message={snackBarMessage}
-            open={open}
-          />
         </div>
       </main>
     )
@@ -88,18 +75,14 @@ class Home extends Component {
 Home.propTypes = {
   addItemToCart: propTypes.func.isRequired,
   fetchProducts: propTypes.func.isRequired,
-  open: propTypes.bool.isRequired,
   orderItems: propTypes.array.isRequired, // eslint-disable-line
   products: propTypes.array.isRequired, // eslint-disable-line
-  snackBarMessage: propTypes.string.isRequired,
 }
 
 const mapStateToProps = (state) => (
   {
-    open: isSnackBarOpen(state),
     orderItems: getOrderItems(state),
     products: getProducts(state),
-    snackBarMessage: getMessage(state),
   }
 )
 
