@@ -1,0 +1,28 @@
+.billing-details {
+  width: 100%;
+  padding: 30px 0;
+  .form-wrap {
+    max-width: 80%;
+    margin: 0 auto;
+
+    form {
+      margin: 0 auto;
+      display: flex;
+      flex: 1 100%;
+      background-color: white;
+
+      .col-1, .col-2 {
+        flex:1 50%;
+      }
+  
+      .field {
+        padding: 10px 20px;
+      }
+  
+      /*the 2nd field on line goes right align*/
+      .field div:nth-child(2) {
+        float: right;
+      }
+    }
+  }
+}
