@@ -1,6 +1,7 @@
 $border: lightgray;
 $green: #4CAF50;
 $grey: lightgrey;
+$white: #fff;
 
 .products-wrapper {
   width: 100%;
@@ -21,6 +22,7 @@ $grey: lightgrey;
   box-sizing: border-box;
   border: 1px solid $border;
   border-radius: 4px;
+  background-color: $white;
 
   & .product-img {
     margin: auto;
