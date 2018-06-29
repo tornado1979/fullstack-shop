@@ -4,61 +4,19 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
-import { TextField } from '@material-ui/core'
+import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import green from '@material-ui/core/colors/green'
+import { withStyles } from '@material-ui/core/styles'
 
 import { getFormValues } from './selectors/form.selectors'
 
+import {
+  renderSelectField,
+  renderTextField,
+} from '../../components/fields'
+
 import './form.scss'
-
-const renderTextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  fullWidth = false,
-  ...custom
-} = {}) => {
-  return (<TextField
-    error={touched && error}
-    fullWidth={fullWidth}
-    label={label}
-    multiline={custom.multiline}
-    {...input}
-    {...custom}
-  />)
-}
-
-renderTextField.propTypes = {
-  input: propTypes.shape().isRequired,
-  label: propTypes.string.isRequired,
-  meta: propTypes.shape().isRequired,
-  custom: propTypes.shape().isRequired, //eslint-disable-line
-}
-
-const renderSelectField = ({
-  input,
-  label,
-  children,
-  meta: { touched, error },
-  fullWidth = false,
-  ...custom
-} = {}) => {
-  return (
-    <TextField
-      error={touched && error}
-      fullWidth={fullWidth}
-      label={label}
-      select
-      {...input}
-      onChange={(event) => {
-        input.onChange(event.target.value)
-        }
-      }
-      {...custom}
-    >
-      children={children}
-    </TextField>
-  )
-}
 
 const validate = formValues => {
   let errors = {} // eslint-disable-line
@@ -84,7 +42,24 @@ const validate = formValues => {
   return errors
 }
 
-let ClientForm = ({clientInfoForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
+const styles = {
+  root: {
+    color: green[600],
+    '&$checked': {
+      color: green[500],
+    },
+  },
+  checked: {},
+  size: {
+    width: 40,
+    height: 40,
+  },
+  sizeIcon: {
+    fontSize: 20,
+  },
+}
+
+let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
   return (
     <div className="form-wrap">
       <form onSubmit={handleSubmit}>
@@ -178,12 +153,40 @@ let ClientForm = ({clientInfoForm, handleSubmit, pristine, reset, submitting}) =
               name="email"
             />
           </div>
+          <div className="field">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  value="checkedB"
+                />
+              }
+              label="CHECK PAYMENTS"
+            />
+            <p>Please send a check to Store Name, Store Street, Store Town, Store State/County.</p>
+          </div>
+          <div className="field">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  classes={{
+                    root: classes.root,
+                    checked: classes.checked,
+                  }}
+                  color="primary"
+                  value="checkedB"
+                />
+              }
+              label="PAYPAL"
+            />
+            <p>PayPal. you can pay with your credit card if you don’t have a PayPal account.</p>
+          </div>
           <div>
             <Button
               disabled={pristine || submitting}
               type="submit"
             >
-              Submit
+              Place Order
             </Button>
             <Button
               disabled={pristine || submitting}
@@ -227,4 +230,4 @@ const mapStateToProps = (state) => {
     clientInfoForm: (formName) => getFormValues(formName, state),
   }
 }
-export default connect(mapStateToProps, null)(ClientForm)
+export default connect(mapStateToProps, null)(withStyles(styles)(ClientForm))
