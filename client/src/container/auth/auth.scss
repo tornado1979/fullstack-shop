@@ -1,0 +1,36 @@
+  .form-wrap {
+    max-width: 80%;
+    margin: 0 auto;
+
+    form {
+      padding: 30px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin: 0 auto;
+      display: flex;
+      flex: 1 100%;
+      background-color: white;
+
+      .col-1 {
+        flex:1 50%;
+        display: inline-flex;
+        margin: 0 auto;
+
+        .logo {
+          background-size: auto;
+        }
+      }
+      .col-1, .col-2 {
+        flex:1 50%;
+        margin: 0 auto;
+      }
+
+      .field {
+        padding: 10px 20px;
+      }
+
+      /*the 2nd field on line goes right align*/
+      .field div:nth-child(2) {
+        float: right;
+      }
+    }
+  }
