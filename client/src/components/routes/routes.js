@@ -6,6 +6,7 @@ import {
 
 import Home from '../../pages/home/home'
 import Checkout from '../../pages/checkout/checkout'
+import Login from '../../pages/login/login'
 
 export const Routes = () => {
   return (
@@ -18,6 +19,10 @@ export const Routes = () => {
       <Route
         component={Checkout}
         path="/checkout"
+      />
+      <Route
+        component={Login}
+        path="/login"
       />
     </Switch>
   )
