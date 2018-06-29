@@ -29,22 +29,8 @@ const Header = ({ cartItems }) => {
             activeStyle={
               { color: '#959E05' }
             }
-            to="/aboutus"
-          >About us
-          </NavLink>
-          <NavLink
-            activeStyle={
-              { color: '#959E05' }
-            }
-            to="/gallery"
-          >Gallery
-          </NavLink>
-          <NavLink
-            activeStyle={
-              { color: '#959E05' }
-            }
-            to="/contact"
-          >Contact us
+            to="/login"
+          >Login
           </NavLink>
           <div style={{ display: 'inline-block' }}>
             {hasItems &&

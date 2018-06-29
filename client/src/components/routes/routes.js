@@ -22,6 +22,7 @@ export const Routes = () => {
       />
       <Route
         component={Login}
+        exact
         path="/login"
       />
     </Switch>
