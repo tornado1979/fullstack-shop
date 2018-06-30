@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send({
-    express: 'Hello from express backend'
-  })
-});
+var User = require('../models/user')
+
+var authController = require('../controllers/authentication')
+
+/* POST add user */
+router.post('/signup', authController.signUp)
 
 module.exports = router;
