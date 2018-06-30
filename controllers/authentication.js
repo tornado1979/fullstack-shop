@@ -1,10 +1,12 @@
+var jwt = require('jsonwebtoken');
+var config = require('../config')
+
 var _ = require('lodash')
 var User = require('../models/user')
 
 exports.getUsers = function(req,res,next) {
   res.send('auth success')
 }
-
 
 exports.signUp = function(req, res, next) {
 
@@ -35,8 +37,11 @@ exports.signUp = function(req, res, next) {
     User.create({
       email: email,
       password: password},
-      function(error, post) {
-        return res.json({success: true, message: "new user added"})
+      function(error, newUser) {
+
+        const token = jwt.sign(newUser.id, config.secret_word)
+
+        return res.json({success: true, message: "New user added", token: token})
     })
   })
 }
