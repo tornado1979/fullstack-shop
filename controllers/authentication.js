@@ -13,6 +13,11 @@ exports.getUsers = function(req,res,next) {
   res.send('auth success')
 }
 
+exports.signin = function(req, res, next) {
+  // create jwt user token
+  const token = createUserWebToken(req.user)
+  res.json({ 'token': token })
+}
 exports.signUp = function(req, res, next) {
 
   // get email & password from request
