@@ -5,6 +5,32 @@ var ExtractJwt = require('passport-jwt').ExtractJwt
 var User = require('../models/user')
 var config = require('../config')
 
+// import passport-local for signing in
+var LocalStrategy = require('passport-local')
+
+
+// create localStrategy object
+const options = {usernameField: 'email'}
+var localLogin = new LocalStrategy(options, function(email, password, done){
+  User.findOne({ email: email }, function (err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false); }
+
+    // verify password
+    user.comparePassword(password, function(err, isMatch){
+      if(err) {
+        return done(err)
+      } else if(!isMatch){
+        return done(null, false)
+      }
+
+      // saves user on the req object.
+      // so we can get it on  exports.signin() function and create the user token
+      return done(null, user);
+    })
+  });
+})
+
 // Setup options for JwtStrategy
 const JwtOptions = {
   secretOrKey: config.secret_word,
@@ -28,5 +54,8 @@ const Jwtlogin = new JwtStrategy(JwtOptions, function(jwt_payload, done){
   })
 })
 
-// Tell passport to use that strategy
+// Tell passport to use this strategy for authenticate restricted routes
 passport.use(Jwtlogin)
+
+// Tell passport to use this strategy for the user login process
+passport.use(localLogin)
