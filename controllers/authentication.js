@@ -9,8 +9,8 @@ function createUserWebToken(user){
   return token
 }
 
-exports.getUsers = function(req,res,next) {
-  res.send('auth success')
+exports.getAccess = function(req, res) {
+  res.send({success: true, message: 'access granted.'})
 }
 
 exports.signin = function(req, res, next) {
