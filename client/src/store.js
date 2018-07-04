@@ -8,6 +8,7 @@ import { reducer as formReducer } from 'redux-form'
 import { reducer as products } from './pages/home/reducers/home.reducers'
 import { reducers as cart } from './container/cart/reducers/cart.reducers'
 import { reducers as snackbar } from './components/snackbar/reducers/snackbar.reducers'
+import { reducers as user } from './container/auth/reducers/auth.reducers'
 
 // middlewares
 import logger from './middlewares/logger'
@@ -57,6 +58,7 @@ const store = createStore(
     form: formReducer,
     products,
     snackbar,
+    user,
   }),
   initialState,
   composedEnhancers,

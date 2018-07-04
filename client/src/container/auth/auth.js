@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button'
 import green from '@material-ui/core/colors/green'
@@ -25,6 +26,13 @@ const validate = formValues => {
     }
   })
 
+  if (
+    formValues.email &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formValues.email)
+  ) {
+    errors.email = 'Invalid email address'
+  }
+
   return errors
 }
 
@@ -47,7 +55,7 @@ const styles = {
 
 let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
   return (
-    <div className="form-wrap">
+    <div className="auth form-wrap">
       <form onSubmit={handleSubmit}>
         <div className="col-1">
           <div className="logo" />
@@ -58,6 +66,7 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
           </div>
           <div className="field">
             <Field
+              autoComplete="none"
               component={renderTextField}
               id="email"
               label="E-mail address*"
@@ -72,6 +81,7 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
               label="Password*"
               name="password"
               placeholder="password"
+              type="password"
             />
           </div>
           <div>
@@ -107,4 +117,7 @@ const mapStateToProps = (state) => {
     AuthForm: (formName) => getFormValues(formName, state),
   }
 }
-export default connect(mapStateToProps, null)(withStyles(styles)(AuthForm))
+export default compose(
+  connect(mapStateToProps, null),
+  withStyles(styles),
+)(AuthForm)
