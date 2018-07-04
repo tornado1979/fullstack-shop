@@ -18,6 +18,9 @@ import { handleSnackBar } from './middlewares/snackbar'
 import { fetchCart } from './container/cart/actionCreators/cart.actionCreators'
 
 
+// read localStorage
+const userSaved = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user')) : null
+
 // Initial state
 const initialState = {
   cart: {
@@ -29,6 +32,14 @@ const initialState = {
   snackbar: {
     message: '',
     open: false,
+  },
+  user: {
+    errorMessage: '',
+    loading: false,
+    user: {
+      email: userSaved && userSaved.email,
+      token: userSaved && userSaved.token,
+    },
   },
 }
 

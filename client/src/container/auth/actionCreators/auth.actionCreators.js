@@ -20,7 +20,6 @@ const authSuccess = (authData) => {
 }
 
 const authFail = (error) => {
-  console.log('auth failed', error)
   return {
     payload: error,
     type: AUTH_FAIL,
@@ -45,11 +44,12 @@ export const auth = (data, callback) => {
         })
 
       const result = await response.json()
+      // store user data & token on localStorage
+      localStorage.setItem('user', JSON.stringify(result))
       dispatch(authSuccess(result))
       // call the callback function to redirect the user to '/'
       callback()
     } catch (error) {
-      console.log('error user login', error)
       dispatch(authFail(error))
     }
   }
