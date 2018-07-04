@@ -16,7 +16,10 @@ exports.getAccess = function(req, res) {
 exports.signin = function(req, res, next) {
   // create jwt user token
   const token = createUserWebToken(req.user)
-  res.json({ 'token': token })
+  res.json({
+     'token': token,
+     email: req.user.email,
+     })
 }
 exports.signUp = function(req, res, next) {
 
