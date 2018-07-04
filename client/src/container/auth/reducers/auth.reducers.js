@@ -5,7 +5,7 @@ import {
 } from '../actions/auth.actions'
 
 const initialState = {
-  error: null,
+  errorMessage: '',
   loading: false,
   user: {},
 }
@@ -26,7 +26,7 @@ export const reducers = (state = initialState, action) => {
     case AUTH_FAIL:
       return {
         ...state,
-        error: action.payload,
+        errorMessage: action.payload,
         loading: false,
       }
     default:
