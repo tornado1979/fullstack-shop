@@ -26,6 +26,19 @@ const authFail = (error) => {
   }
 }
 
+export const signOut = (callBack) => {
+  // clean local storage
+  localStorage.clear('user')
+  // redirect user
+  callBack()
+
+  // dispatch logout
+  return {
+    payload: {},
+    type: AUTH_SUCCESS,
+  }
+}
+
 
 export const auth = (data, callback) => {
   return async dispatch => {

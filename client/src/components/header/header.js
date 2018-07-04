@@ -7,7 +7,9 @@ import Badge from '@material-ui/core/Badge'
 import { getCartItems } from '../../container/cart/selectors/cart.selectors'
 import { CartWrapped } from '../../container/cart'
 
-const Header = ({ cartItems }) => {
+import { getUser } from '../../container/auth/selectors/auth.selectors'
+
+const Header = ({ cartItems, isUserLoggedIn }) => {
   const hasItems = !!cartItems.length
   return (
     <header>
@@ -25,13 +27,22 @@ const Header = ({ cartItems }) => {
             to="/"
           >Home
           </NavLink>
+          {!isUserLoggedIn &&
           <NavLink
             activeStyle={
               { color: '#959E05' }
             }
             to="/login"
-          >Login
-          </NavLink>
+          >Sign in
+          </NavLink>}
+          {isUserLoggedIn &&
+          <NavLink
+            activeStyle={
+              { color: '#959E05' }
+            }
+            to="/signout"
+          >Sign out
+          </NavLink>}
           <div style={{ display: 'inline-block' }}>
             {hasItems &&
             <Badge badgeContent={cartItems.length} color="secondary">
@@ -47,10 +58,15 @@ const Header = ({ cartItems }) => {
 
 Header.propTypes = {
   cartItems: propTypes.array.isRequired, // eslint-disable-line
+  isUserLoggedIn: propTypes.bool.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-  cartItems: getCartItems(state),
-})
+const mapStateToProps = (state) => {
+  const user = getUser(state)
+  return ({
+    cartItems: getCartItems(state),
+    isUserLoggedIn: !!Object.keys(user).length,
+  })
+}
 
 export default connect(mapStateToProps, null)(Header)

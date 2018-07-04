@@ -7,6 +7,7 @@ import {
 import Home from '../../pages/home/home'
 import Checkout from '../../pages/checkout/checkout'
 import Login from '../../pages/login/login'
+import SignOut from '../../container/auth/signOut'
 
 export const Routes = () => {
   return (
@@ -24,6 +25,11 @@ export const Routes = () => {
         component={Login}
         exact
         path="/login"
+      />
+      <Route
+        component={SignOut}
+        exact
+        path="/signout"
       />
     </Switch>
   )
