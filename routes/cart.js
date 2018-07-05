@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
+var passport = require('passport')
+const requireAuthentication = passport.authenticate('jwt', {session: false})
+
+
 /*import cart schema */
 const Cart = require('../models/cart')
 
 /* GET cart items. */
-router.get('/', (req, res, next) => {
+function callback(req, res, next) {
   Cart.find()
   .exec()
   .then((cart) => res.json(cart))
   .catch((err) => next(err));
-})
+}
+
+router.get('/', requireAuthentication, callback)
 
 /* POST add item to cart*/
 router.post('/add', (req,res,next) => {
