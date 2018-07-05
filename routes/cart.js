@@ -16,8 +16,14 @@ function callback(req, res, next) {
   .catch((err) => next(err));
 }
 
+// implement 'requireAuthentication' on all '/cart' paths
+router.all('*', requireAuthentication)
+
 router.get('/', requireAuthentication, callback)
 
+router.get('/history', (req,res, next) => {
+  res.send('user cart history')
+})
 /* POST add item to cart*/
 router.post('/add', (req,res,next) => {
   Cart.create(req.body, function (err, post) {
