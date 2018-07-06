@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Form from '../../components/form/form'
+import SignUpForm from '../../container/auth/signupForm'
 import Order from '../../components/order'
 
 import './checkout.scss'
@@ -16,7 +16,7 @@ class Checkout extends Component {
           <div className="title">
             <h2>Checkout</h2>
           </div>
-          <Form
+          <SignUpForm
             onSubmit={this.handleSubmit}
           />
           <Order />
