@@ -16,7 +16,7 @@ import {
   renderTextField,
 } from '../../components/fields'
 
-import './form.scss'
+import './signupForm.scss'
 
 const validate = formValues => {
   let errors = {} // eslint-disable-line
@@ -186,7 +186,7 @@ let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submi
               disabled={pristine || submitting}
               type="submit"
             >
-              Place Order
+              Sign up
             </Button>
             <Button
               disabled={pristine || submitting}
@@ -205,7 +205,7 @@ let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submi
               component={renderTextField}
               fullWidth
               id="orderNotes"
-              label="Order Notes"
+              label="Notes"
               multiline
               name="orderNotes"
             />
