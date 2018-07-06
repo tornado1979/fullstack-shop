@@ -12,7 +12,7 @@ export const renderTextField = ({
   return (<TextField
     error={touched && error}
     fullWidth={fullWidth}
-    label={label}
+    label={((touched && error) && (`${label}-${error}`)) || label}
     multiline={custom.multiline}
     {...input}
     {...custom}
