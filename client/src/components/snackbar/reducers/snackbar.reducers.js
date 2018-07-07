@@ -6,6 +6,7 @@ import {
 const initState = {
   message: '',
   open: false,
+  variant: '',
 }
 export const reducers = (state = initState, action) => {
   switch (action.type) {
@@ -15,7 +16,7 @@ export const reducers = (state = initState, action) => {
         ...state,
         message: action.payload.message,
         open: action.payload.open,
-
+        variant: action.payload.variant,
       }
     default:
       return state

@@ -15,3 +15,10 @@ export const getMessage = createSelector(
     return (snackbar && snackbar.message)
   },
 )
+
+export const getVariant = createSelector(
+  getLocalState,
+  snackbar => {
+    return (snackbar && snackbar.variant)
+  },
+)
