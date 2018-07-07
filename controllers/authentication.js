@@ -19,6 +19,8 @@ exports.signin = function(req, res, next) {
   res.json({
      'token': token,
      email: req.user.email,
+     successs: true,
+     message: 'Welcome, feel free to play around.'
      })
 }
 exports.signUp = function(req, res, next) {
