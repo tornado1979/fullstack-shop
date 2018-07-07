@@ -40,7 +40,9 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        user: action.payload,
+        message: action.payload.message,
+        success: action.payload.success,
+        user: Object.assign({}, { email: action.payload.email, token: action.payload.token }),
       }
     case AUTH_FAIL:
       return {

@@ -28,7 +28,6 @@ const signupSuccess = (values) => {
 }
 
 const signupFail = (error) => {
-  console.info('signupFail', error)
   return {
     payload: error,
     type: SIGNUP_FAIL,
@@ -52,7 +51,6 @@ export const signup = (formValues, callback) => async (dispatch) => {
       })
 
     const result = await response.json()
-
     // store user data & token on localStorage
     localStorage.setItem('user', JSON.stringify(result))
     dispatch(signupSuccess(result))

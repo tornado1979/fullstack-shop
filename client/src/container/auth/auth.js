@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import green from '@material-ui/core/colors/green'
 import { withStyles } from '@material-ui/core/styles'
 
-import { getFormValues } from '../../components/form/selectors/form.selectors'
+import { getFormValues } from './selectors/form.selectors'
 
 import { renderTextField } from '../../components/fields'
 
@@ -62,7 +62,7 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
         </div>
         <div className="col-2">
           <div className="field">
-            <h2>Login to your account</h2>
+            <h2>Sign in to your account</h2>
           </div>
           <div className="field">
             <Field
@@ -89,12 +89,12 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
               disabled={pristine || submitting}
               type="submit"
             >
-              Login
+              Sign in
             </Button>
             <Button
               disabled={pristine || submitting}
             >
-              Register
+              Sign up
             </Button>
           </div>
         </div>
