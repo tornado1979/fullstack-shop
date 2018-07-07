@@ -9,6 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import green from '@material-ui/core/colors/green'
 import { withStyles } from '@material-ui/core/styles'
 
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
+
 import { getFormValues } from './selectors/form.selectors'
 
 import {
@@ -17,6 +20,18 @@ import {
 } from '../../components/fields'
 
 import './signupForm.scss'
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const asyncValidate = (values /* , dispatch */) => {
+  console.log('formvalues-async', values)
+  return sleep(1000).then(() => {
+    // simulate server latency
+    // eslint-disable-next-line no-throw-literal
+    // throw { email: 'That email is in use' }
+  })
+}
+
 
 const validate = formValues => {
   let errors = {} // eslint-disable-line
@@ -31,6 +46,7 @@ const validate = formValues => {
     'postcode',
     'phone',
     'email',
+    'password',
   ]
 
   requiredFields.forEach((field) => {
@@ -38,6 +54,10 @@ const validate = formValues => {
       errors[field] = 'Required'
     }
   })
+
+  if (formValues.password && formValues.password.length < 6) {
+    errors.password = 'It\'s too short (min. 6 chars)'
+  }
 
   return errors
 }
@@ -59,7 +79,7 @@ const styles = {
   },
 }
 
-let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
+let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, serverMessage, submitting}) => { // eslint-disable-line
   return (
     <div className="form-wrap">
       <form onSubmit={handleSubmit}>
@@ -140,18 +160,36 @@ let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submi
             />
           </div>
           <div className="field">
-            <Field
-              component={renderTextField}
-              id="phone"
-              label="Phone*"
-              name="phone"
-            />
-            <Field
-              component={renderTextField}
-              id="email"
-              label="E-mail address*"
-              name="email"
-            />
+            <FormControl aria-describedby="phone-helper" className={classes.formControl}>
+              <Field
+                component={renderTextField}
+                id="phone"
+                label="Phone*"
+                name="phone"
+              />
+              <FormHelperText id="phone-helper">Please fill that field</FormHelperText>
+            </FormControl>
+          </div>
+          <div className="field">
+            <FormControl aria-describedby="email-helper" className={classes.formControl}>
+              <Field
+                component={renderTextField}
+                id="email"
+                label="E-mail address*"
+                name="email"
+              />
+              <FormHelperText id="email-helper">Please add your email</FormHelperText>
+            </FormControl>
+            <FormControl aria-describedby="password-helper" className={classes.formControl}>
+              <Field
+                component={renderTextField}
+                id="password"
+                label="password*"
+                name="password"
+                type="password"
+              />
+              <FormHelperText id="password-helper">Password must be at least 6 chars long.</FormHelperText>
+            </FormControl>
           </div>
           <div className="field">
             <FormControlLabel
@@ -195,6 +233,9 @@ let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submi
               Clear
             </Button>
           </div>
+          <div style={{ textAlign: 'center' }}>
+            {serverMessage}
+          </div>
         </div>
         <div className="col-2">
           <div className="field">
@@ -218,11 +259,13 @@ let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, submi
 
 ClientForm.proTypes = {
   handleSubmit: propTypes.func.isRequired,
+  serverMessage: propTypes.string.isRequired,
 }
 
 ClientForm = reduxForm({
   form: 'clientInfoForm',
   validate,
+  asyncValidate,
 })(ClientForm)
 
 const mapStateToProps = (state) => {

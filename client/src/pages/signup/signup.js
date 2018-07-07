@@ -5,8 +5,11 @@ import propTypes from 'prop-types'
 
 import SignUpForm from '../../container/auth/signupForm'
 
-import { auth } from '../../container/auth/actionCreators/auth.actionCreators'
-import { getUser } from '../../container/auth/selectors/auth.selectors'
+import { signup } from '../../container/auth/actionCreators/auth.actionCreators'
+import {
+  getUser,
+  getMessage,
+} from '../../container/auth/selectors/auth.selectors'
 
 // import config from '../../../clientConfig'
 // const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
@@ -18,10 +21,11 @@ class SignUp extends Component {
     }
   }
 
-  handleSubmited(values) {
+  handleSubmited(formValues) {
     // dispatch AUTH_START
-    this.props.login(values, () => {
-      this.props.history.push('/')
+    // add callback function to redirect user after sign up ?? (dont know yet, where to redirect)
+    this.props.signup(formValues, () => {
+      console.log('redirect user after sign up')
     })
   }
 
@@ -33,7 +37,8 @@ class SignUp extends Component {
             <h2>Sign up</h2>
           </div>
           <SignUpForm
-            onSubmit={this.handleSubmit}
+            onSubmit={(values) => this.handleSubmited(values)} // eslint-disable-line
+            serverMessage={this.props.serverMessage}
           />
         </div>
       </main>
@@ -44,18 +49,20 @@ class SignUp extends Component {
 SignUp.propTypes = {
   history: propTypes.shape().isRequired,
   isUserLoggedIn: propTypes.bool.isRequired,
-  login: propTypes.func.isRequired,
+  signup: propTypes.func.isRequired,
+  serverMessage: propTypes.string.isRequired,
 }
 
 const mapStateToProps = (state) => {
   const user = getUser(state)
   return ({
     isUserLoggedIn: !!Object.keys(user).length,
+    serverMessage: getMessage(state),
   })
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  login: (credentials, redirection) => auth(credentials, redirection),
+  signup: (formValues, redirection) => signup(formValues, redirection),
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
