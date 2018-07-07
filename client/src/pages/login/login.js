@@ -25,10 +25,15 @@ class Login extends Component {
     })
   }
 
+  goto() {
+    this.props.history.push('/signup')
+  }
+
   render() {
     return (
       <main>
         <AuthForm
+          goto={() => this.goto()}
           onSubmit={(values) => this.handleSubmited(values)}
         />
       </main>
