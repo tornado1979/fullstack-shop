@@ -53,7 +53,7 @@ const styles = {
   },
 }
 
-let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
+let AuthForm = ({classes, goto, AuthForm, handleSubmit, pristine, reset, submitting}) => { // eslint-disable-line
   return (
     <div className="auth form-wrap">
       <form onSubmit={handleSubmit}>
@@ -92,7 +92,8 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
               Sign in
             </Button>
             <Button
-              disabled={pristine || submitting}
+              disabled={submitting}
+              onClick={goto}
             >
               Sign up
             </Button>
@@ -104,6 +105,7 @@ let AuthForm = ({classes, AuthForm, handleSubmit, pristine, reset, submitting}) 
 }
 
 AuthForm.proTypes = {
+  goto: propTypes.func.isRequired,
   handleSubmit: propTypes.func.isRequired,
 }
 
