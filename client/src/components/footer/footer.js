@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import {
   getMessage,
+  getVariant,
   isSnackBarOpen,
 } from '../../components/snackbar/selectors/snackbar.selectors'
 
@@ -20,7 +21,12 @@ import {
   socialData,
 } from '../../data/footerData'
 
-const Footer = ({ bgTemplate, open, snackBarMessage }) => {
+const Footer = ({
+  bgTemplate,
+  open,
+  snackBarMessage,
+  snackBarVariant,
+}) => {
   const footerClass = classnames({
     [`bg--${bgTemplate}`]: true,
   })
@@ -131,6 +137,7 @@ const Footer = ({ bgTemplate, open, snackBarMessage }) => {
       <WrapperSnackBar
         message={snackBarMessage}
         open={open}
+        variant={snackBarVariant}
       />
     </footer>
   )
@@ -140,12 +147,14 @@ Footer.propTypes = {
   bgTemplate: propTypes.string.isRequired,
   open: propTypes.bool.isRequired,
   snackBarMessage: propTypes.string.isRequired,
+  snackBarVariant: propTypes.string.isRequired,
 }
 
 const mapStateToProps = (state) => (
   {
     open: isSnackBarOpen(state),
     snackBarMessage: getMessage(state),
+    snackBarVariant: getVariant(state),
   }
 )
 
