@@ -23,15 +23,61 @@ exports.signin = function(req, res, next) {
 }
 exports.signUp = function(req, res, next) {
 
-  // get email & password from request
-  const email = req.body.email
-  const password = req.body.password
+  // destruct values from req.body object
+  const {
+    companyName,
+    streetAddress,
+    townCity,
+    stateCountry,
+    postcode,
+    phone,
+    email,
+    country,
+    password,
+  } = req.body
 
   // if no data sent from the user
   if(!email || !password) {
     return res
     .status(422)
     .send({success: false, message: 'You must provide email and password.'})
+  }
+
+  // check if user provides required data
+  if(!companyName) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide company Name.'})
+  }
+  if(!streetAddress) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide street address.'})
+  }
+  if(!townCity) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide Town/City.'})
+  }
+  if(!stateCountry) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide State/Country.'})
+  }
+  if(!postcode) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide Postcode/ZIP.'})
+  }
+  if(!phone) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide contact Phone.'})
+  }
+  if(!country) {
+    return res
+    .status(422)
+    .send({success: false, message: 'You must provide Country.'})
   }
 
   // lookfor if email exists alredy in the db
@@ -49,12 +95,20 @@ exports.signUp = function(req, res, next) {
 
     User.create({
       email: email,
-      password: password},
+      password: password,
+      companyName: companyName,
+      streetAddress: streetAddress,
+      townCity: townCity,
+      stateCountry: stateCountry,
+      postcode: postcode,
+      phone: phone,
+      country: country,
+    },
       function(error, newUser) {
 
         const token = createUserWebToken(newUser)
 
-        return res.json({success: true, message: "New user added", token: token})
+        return res.json({success: true, message: "New user added!", token: token})
     })
   })
 }

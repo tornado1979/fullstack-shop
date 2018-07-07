@@ -20,6 +20,34 @@ const userSchema = new mongoose.Schema({
     type: String,
     defaultValue: '',
   },
+  companyName: {
+    type: String,
+    defaultValue: '',
+  },
+  streetAddress: {
+    type: String,
+    defaultValue: '',
+  },
+  townCity: {
+    type: String,
+    defaultValue: '',
+  },
+  stateCountry: {
+    type: String,
+    defaultValue: '',
+  },
+  postcode: {
+    type: String,
+    defaultValue: '',
+  },
+  phone: {
+    type: String,
+    defaultValue: '',
+  },
+  country: {
+    type: String,
+    defaultValue: '',
+  },
   updated_at: {
     type: String,
     defaultValue: new Date()
