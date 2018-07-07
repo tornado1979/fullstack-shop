@@ -32,10 +32,11 @@ const initialState = {
   snackbar: {
     message: '',
     open: false,
+    variant: 'info',
   },
   user: {
-    errorMessage: '',
     loading: false,
+    message: '',
     user: {
       email: userSaved && userSaved.email,
       token: userSaved && userSaved.token,
