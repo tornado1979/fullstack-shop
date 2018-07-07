@@ -79,14 +79,17 @@ const authFail = (error) => {
 }
 
 export const signOut = (callBack) => {
-  // clean local storage
-  localStorage.clear('user')
+  // remove  user from localStorage
+  localStorage.removeItem('user')
   // redirect user
   callBack()
 
   // dispatch logout
   return {
-    payload: {},
+    payload: {
+      message: 'Goodbye, we will miss you mate!',
+      success: true,
+    },
     type: AUTH_SUCCESS,
   }
 }
