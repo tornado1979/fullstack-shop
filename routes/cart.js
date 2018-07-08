@@ -12,7 +12,21 @@ const Cart = require('../models/cart')
 function callback(req, res, next) {
   Cart.find()
   .exec()
-  .then((cart) => res.json(cart))
+  .then((cart) => {
+    const cartIsArray = Array.isArray(cart)
+    let message = 'cart is loaded' // cart should be array, if its not array, something is wrong!
+
+    if (cartIsArray && cart.length == 0) {
+      message = `Your cart is empty.`
+    } else {
+      message= `There ${cart.length > 1 ? `are` : `is`} ${cart.length} item${cart.length > 1 ? `s` : ``} in your cart`
+    }
+
+    res.json({
+    items: cart,
+    success: true,
+    message: message // grab message from above.
+  })})
   .catch((err) => next(err));
 }
 
