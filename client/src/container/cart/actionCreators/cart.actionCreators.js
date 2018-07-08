@@ -127,7 +127,7 @@ export const updateCartItem = (payload) => async (dispatch) => {
   }
 }
 
-export const removeItemFromCart = (payload) => async (dispatch) => {
+export const removeItemFromCart = (payload, JwtToken) => async (dispatch) => {
   try {
     // const response = await fetch(`${server}cart/remove`,
     const response = await fetch('cart/remove',
@@ -136,6 +136,7 @@ export const removeItemFromCart = (payload) => async (dispatch) => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          authorization: JwtToken,
         },
         method: 'POST',
       })

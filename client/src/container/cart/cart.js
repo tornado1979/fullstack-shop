@@ -22,6 +22,7 @@ import {
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
 
 import { Select } from '../../components/select'
+import { getUser } from '../../container/auth/selectors/auth.selectors'
 
 import './cart.scss'
 import emptyCart from '../../assets/img/empty-cart.png'
@@ -92,7 +93,7 @@ class Cart extends React.Component {
   }
 
   removeItemFromCart(id) {
-    this.props.removeItemFromCart({ cartId: id })
+    this.props.removeItemFromCart({ cartId: id }, this.props.JwtToken)
   }
 
   updateCartItem(item, event) {
@@ -178,6 +179,7 @@ class Cart extends React.Component {
 }
 
 Cart.propTypes = {
+  JwtToken: propTypes.string.isRequired,
   classes: propTypes.shape().isRequired,
   history: propTypes.shape().isRequired, // eslint-disable-line
   orderItems: propTypes.shape().isRequired,
@@ -185,12 +187,16 @@ Cart.propTypes = {
   updateCartItem: propTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-  orderItems: getOrderItems(state),
-})
+const mapStateToProps = (state) => {
+  const user = getUser(state)
+  return {
+    JwtToken: user.token,
+    orderItems: getOrderItems(state),
+  }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  removeItemFromCart: (item) => removeItemFromCart(item),
+  removeItemFromCart: (item, JwtToken) => removeItemFromCart(item, JwtToken),
   updateCartItem: (updatedItem) => updateCartItem(updatedItem),
 }, dispatch)
 

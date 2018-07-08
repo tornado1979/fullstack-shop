@@ -11,12 +11,13 @@ import Button from '@material-ui/core/Button'
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
 
 import { removeItemFromCart } from '../../container/cart/actionCreators/cart.actionCreators'
+import { getUser } from '../../container/auth/selectors/auth.selectors'
 
 import './order.scss'
 
 class Order extends Component {
   removeItem(id) {
-    this.props.removeItem({ cartId: id })
+    this.props.removeItem({ cartId: id }, this.props.JwtToken)
   }
 
   createOrderItemsDom(orderItems) {
@@ -72,18 +73,21 @@ class Order extends Component {
 }
 
 Order.propTypes = {
+  JwtToken: propTypes.string.isRequired,
   orderItems: propTypes.array.isRequired, //eslint-disable-line
   removeItem: propTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
+  const user = getUser(state)
   return {
+    JwtToken: user.token,
     orderItems: getOrderItems(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  removeItem: (item) => removeItemFromCart(item),
+  removeItem: (item, JwtToken) => removeItemFromCart(item, JwtToken),
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order)
