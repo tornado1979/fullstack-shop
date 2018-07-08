@@ -21,7 +21,7 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         ...state.items,
-        items: action.payload,
+        items: action.payload.items,
         message: action.payload.message,
         success: true,
       }

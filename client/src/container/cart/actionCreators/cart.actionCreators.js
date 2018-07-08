@@ -47,7 +47,7 @@ export const receiveCartFail = (err) => {
   }
 }
 
-export const fetchCart = () => async (dispatch) => {
+export const fetchCart = (JwtToken) => async (dispatch) => {
   dispatch(requestCart())
 
   let response
@@ -55,20 +55,30 @@ export const fetchCart = () => async (dispatch) => {
 
   try {
     // response = await fetch(`${server}cart`)
-    response = await fetch('cart')
-    result = await response
+    response = await fetch('cart',
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: JwtToken,
+        },
+        method: 'GET',
+      },
+    )
 
     // get status
-    // if status is not 200
+    // if status is not 200,304
     // i dispatch cartfail
-    if (response.status === 200) {
-      await dispatch(receiveCart(result.json()))
-      await dispatch(receiveCartSuccess())
+    const statuses = [200, 304]
+    if (statuses.includes(response.status)) {
+      result = await response.json()
+      console.log('cart items', result)
+      dispatch(receiveCart(result))
+      dispatch(receiveCartSuccess())
     } else {
-      dispatch(receiveCartFail(result.statusText))
+      dispatch(receiveCartFail(response.statusText))
     }
   } catch (err) {
-    console.log('cart error', err.message)
     dispatch(receiveCartFail(err.message))
   }
 }
