@@ -6,7 +6,12 @@ const getLocalState = (state) => {
 
 export const getUser = createSelector(
   getLocalState,
-  user => (user.user && user.user.token) || {},
+  user => user.user || {},
+)
+
+export const isUserLogedIn = createSelector(
+  getUser,
+  user => (user && !!user.token) || false,
 )
 
 export const getMessage = createSelector(

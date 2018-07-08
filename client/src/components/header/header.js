@@ -7,7 +7,7 @@ import Badge from '@material-ui/core/Badge'
 import { getCartItems } from '../../container/cart/selectors/cart.selectors'
 import { CartWrapped } from '../../container/cart'
 
-import { getUser } from '../../container/auth/selectors/auth.selectors'
+import { isUserLogedIn } from '../../container/auth/selectors/auth.selectors'
 
 const Header = ({ cartItems, isUserLoggedIn }) => {
   const hasItems = !!cartItems.length
@@ -62,10 +62,9 @@ Header.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const user = getUser(state)
   return ({
     cartItems: getCartItems(state),
-    isUserLoggedIn: !!Object.keys(user).length,
+    isUserLoggedIn: isUserLogedIn(state),
   })
 }
 

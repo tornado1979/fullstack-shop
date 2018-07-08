@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 
-import { getUser } from '../auth/selectors/auth.selectors'
+import { isUserLogedIn } from '../auth/selectors/auth.selectors'
 import { signOut } from '../auth/actionCreators/auth.actionCreators'
 
 class SignOut extends Component { // eslint-disable-line
@@ -28,9 +28,8 @@ SignOut.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const user = getUser(state)
   return ({
-    isUserLoggedIn: !!Object.keys(user).length,
+    isUserLoggedIn: isUserLogedIn(state),
   })
 }
 

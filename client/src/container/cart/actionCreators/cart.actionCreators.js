@@ -72,7 +72,7 @@ export const cartActionFail = (err) => {
   }
 }
 
-export const addItemToCart = (payload) => async (dispatch) => {
+export const addItemToCart = (payload, JwtToken) => async (dispatch) => {
   try {
     // const response = await fetch(`${server}cart/add`,
     const response = await fetch('cart/add',
@@ -81,6 +81,7 @@ export const addItemToCart = (payload) => async (dispatch) => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          authorization: JwtToken,
         },
         method: 'POST',
       })

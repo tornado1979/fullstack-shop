@@ -12,6 +12,7 @@ import { getProducts } from './selectors/home.selectors'
 import { fetchProducts } from './actionCreators/home.actionCreators'
 import { addItemToCart } from '../../container/cart/actionCreators/cart.actionCreators'
 import { getOrderItems } from '../../globalSelectors/globalSelectors'
+import { getUser } from '../../container/auth/selectors/auth.selectors'
 
 const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
 
@@ -26,7 +27,7 @@ class Home extends Component {
   }
 
   addItem(val) { // eslint-disable-line
-    this.props.addItemToCart(val)
+    this.props.addItemToCart(val, this.props.JwtToken)
   }
 
   checkItem(val) {
@@ -75,19 +76,23 @@ class Home extends Component {
 Home.propTypes = {
   addItemToCart: propTypes.func.isRequired,
   fetchProducts: propTypes.func.isRequired,
+  JwtToken: propTypes.string.isRequired,
   orderItems: propTypes.array.isRequired, // eslint-disable-line
   products: propTypes.array.isRequired, // eslint-disable-line
 }
 
-const mapStateToProps = (state) => (
-  {
+const mapStateToProps = (state) => {
+  const user = getUser(state)
+  return {
+    JwtToken: user.token,
     orderItems: getOrderItems(state),
     products: getProducts(state),
   }
-)
+}
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  addItemToCart: (item) => addItemToCart(item),
+// pass property JwtToken to actioncreator
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  addItemToCart: (item, JwtToken) => addItemToCart(item, JwtToken),
   fetchProducts,
 }, dispatch)
 

@@ -6,7 +6,7 @@ import propTypes from 'prop-types'
 import AuthForm from '../../container/auth'
 
 import { auth } from '../../container/auth/actionCreators/auth.actionCreators'
-import { getUser } from '../../container/auth/selectors/auth.selectors'
+import { isUserLogedIn } from '../../container/auth/selectors/auth.selectors'
 
 // import config from '../../../clientConfig'
 // const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
@@ -48,9 +48,8 @@ Login.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const user = getUser(state)
   return ({
-    isUserLoggedIn: !!Object.keys(user).length,
+    isUserLoggedIn: isUserLogedIn(state),
   })
 }
 

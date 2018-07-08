@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 
-import { getUser } from '../container/auth/selectors/auth.selectors'
+import { isUserLogedIn } from '../container/auth/selectors/auth.selectors'
 
 export default ChildComponent => {
   class ComposedComponent extends Component { // eslint-disable-line
@@ -37,9 +37,8 @@ export default ChildComponent => {
   }
 
   const mapStateToProps = (state) => {
-    const user = getUser(state)
     return ({
-      isUserLoggedIn: !!Object.keys(user).length,
+      isUserLoggedIn: isUserLogedIn(state),
     })
   }
 

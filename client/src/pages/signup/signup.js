@@ -7,8 +7,8 @@ import SignUpForm from '../../container/auth/signupForm'
 
 import { signup } from '../../container/auth/actionCreators/auth.actionCreators'
 import {
-  getUser,
   getMessage,
+  isUserLogedIn,
 } from '../../container/auth/selectors/auth.selectors'
 
 // import config from '../../../clientConfig'
@@ -54,9 +54,8 @@ SignUp.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const user = getUser(state)
   return ({
-    isUserLoggedIn: !!Object.keys(user).length,
+    isUserLoggedIn: isUserLogedIn(state),
     serverMessage: getMessage(state),
   })
 }
