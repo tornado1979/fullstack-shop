@@ -4,10 +4,13 @@ import {
   UPDATE_CART_ITEM,
   REQUEST_CART,
   RECEIVE_CART,
+  RECEIVE_CART_FAIL,
 } from '../actions/cart.action'
 
 const initialState = {
   items: [],
+  message: '',
+  success: true,
 }
 
 export const reducers = (state = initialState, action) => {
@@ -19,6 +22,14 @@ export const reducers = (state = initialState, action) => {
         ...state,
         ...state.items,
         items: action.payload,
+        message: action.payload.message,
+        success: true,
+      }
+    case RECEIVE_CART_FAIL:
+      return {
+        ...state,
+        message: action.payload.message,
+        success: false,
       }
     case ADD_ITEM_TO_CART:
       return {
@@ -26,7 +37,6 @@ export const reducers = (state = initialState, action) => {
         items: [...state.items, action.payload],
       }
     case UPDATE_CART_ITEM: {
-      // const index = state.items.findIndex(item => item._id === action.payload._id)
       const { quantity } = action.payload
       const updatedItems = state.items
         .map(item => (item._id === action.payload._id ? { ...item, quantity } : item))

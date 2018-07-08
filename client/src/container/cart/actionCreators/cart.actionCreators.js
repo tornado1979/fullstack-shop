@@ -42,7 +42,7 @@ export const receiveCartSuccess = () => {
 
 export const receiveCartFail = (err) => {
   return {
-    payload: err,
+    payload: { message: err },
     type: RECEIVE_CART_FAIL,
   }
 }
@@ -56,10 +56,19 @@ export const fetchCart = () => async (dispatch) => {
   try {
     // response = await fetch(`${server}cart`)
     response = await fetch('cart')
-    result = await response.json()
-    await dispatch(receiveCart(result))
-    await dispatch(receiveCartSuccess())
+    result = await response
+
+    // get status
+    // if status is not 200
+    // i dispatch cartfail
+    if (response.status === 200) {
+      await dispatch(receiveCart(result.json()))
+      await dispatch(receiveCartSuccess())
+    } else {
+      dispatch(receiveCartFail(result.statusText))
+    }
   } catch (err) {
+    console.log('cart error', err.message)
     dispatch(receiveCartFail(err.message))
   }
 }

@@ -1,6 +1,7 @@
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
+  RECEIVE_CART_FAIL,
 } from '../container/cart/actions/cart.action'
 
 import {
@@ -30,6 +31,9 @@ export const handleSnackBar = (store) => {
         return next(action)
       case REMOVE_ITEM_FROM_CART:
         store.dispatch(showSnackBar({ message: 'Product removed from cart', open: true, variant: 'success' }))
+        return next(action)
+      case RECEIVE_CART_FAIL:
+        store.dispatch(showSnackBar({ message: payload.message, open: true, variant: 'warning' }))
         return next(action)
       default:
         return next(action)
