@@ -80,6 +80,9 @@ store.subscribe(() => {
   console.log('[Subscription]', store.getState())
 })
 
-store.dispatch(fetchCart())
+if (userSaved) {
+  store.dispatch(fetchCart(userSaved.token))
+}
+
 
 export default store
