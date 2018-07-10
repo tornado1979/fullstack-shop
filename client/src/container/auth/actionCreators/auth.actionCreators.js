@@ -73,7 +73,7 @@ const authSuccess = (authData) => {
 
 const authFail = (error) => {
   return {
-    payload: error,
+    payload: { message: error },
     type: AUTH_FAIL,
   }
 }
@@ -112,12 +112,20 @@ export const auth = (data, callback) => {
           method: 'POST',
         })
 
-      const result = await response.json()
-      // store user data & token on localStorage
-      localStorage.setItem('user', JSON.stringify(result))
-      dispatch(authSuccess(result))
-      // call the callback function to redirect the user to '/'
-      callback()
+      // get status
+      // if status is not 200,304
+      // i dispatch cartfail
+      const statuses = [200, 304]
+      if (statuses.includes(response.status)) {
+        const result = await response.json()
+        // store user data & token on localStorage
+        localStorage.setItem('user', JSON.stringify(result))
+        dispatch(authSuccess(result))
+        // call the callback function to redirect the user to '/'
+        callback()
+      } else {
+        dispatch(authFail('Invalid login credentials.'))
+      }
     } catch (error) {
       dispatch(authFail('Invalid login credentials.'))
     }
