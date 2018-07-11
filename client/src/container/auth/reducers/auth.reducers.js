@@ -30,6 +30,8 @@ export const reducers = (state = initialState, action) => {
         ...state,
         loading: false,
         message: action.payload.message,
+        success: action.payload.success,
+        user: Object.assign({}, { email: action.payload.email, token: action.payload.token }),
       }
     case AUTH_START:
       return {
