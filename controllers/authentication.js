@@ -1,6 +1,9 @@
 var jwt = require('jsonwebtoken');
 var config = require('../config')
 
+// import bot here
+const bot = require('../services/bot');
+
 var User = require('../models/user')
 
 function createUserWebToken(user){
@@ -14,8 +17,11 @@ exports.getAccess = function(req, res) {
 }
 
 exports.signin = function(req, res, next) {
+  // send notification
+  bot.sendMessage('598666449', `User ${req.user.email} just loged in.`);
   // create jwt user token
   const token = createUserWebToken(req.user)
+  // return messaage to the client
   res.json({
      'token': token,
      email: req.user.email,
@@ -109,6 +115,8 @@ exports.signUp = function(req, res, next) {
       function(error, newUser) {
 
         const token = createUserWebToken(newUser)
+        // send notification
+        bot.sendMessage('598666449',`New user just created: ${newUser.email}.`)
 
         return res.json({success: true, message: "New user added!", token: token})
     })
