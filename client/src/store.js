@@ -64,14 +64,24 @@ const composedEnhancers = compose(
   ...enhancers,
 )
 
+const appreducers = combineReducers({
+  cart,
+  form: formReducer,
+  products,
+  snackbar,
+  user,
+})
+
+const rootreducers = (state, action) => {
+  if (action.type === 'LOG_OUT') {
+    state = undefined // eslint-disable-line
+  }
+
+  return appreducers(state, action)
+}
+
 const store = createStore(
-  combineReducers({
-    cart,
-    form: formReducer,
-    products,
-    snackbar,
-    user,
-  }),
+  rootreducers,
   initialState,
   composedEnhancers,
 )

@@ -7,6 +7,7 @@ import {
   SIGNUP_START,
   SIGNUP_FAIL,
   SIGNUP_SUCCESS,
+  SIGN_OUT,
 } from '../actions/auth.actions'
 
 const authRequest = () => {
@@ -90,7 +91,7 @@ export const signOut = (callBack) => {
       message: 'Goodbye, we will miss you mate!',
       success: true,
     },
-    type: AUTH_SUCCESS,
+    type: SIGN_OUT,
   }
 }
 

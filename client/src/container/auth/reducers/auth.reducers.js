@@ -5,6 +5,7 @@ import {
   SIGNUP_START,
   SIGNUP_FAIL,
   SIGNUP_SUCCESS,
+  SIGN_OUT,
 } from '../actions/auth.actions'
 
 const initialState = {
@@ -39,6 +40,14 @@ export const reducers = (state = initialState, action) => {
         loading: true,
       }
     case AUTH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.message,
+        success: action.payload.success,
+        user: Object.assign({}, { email: action.payload.email, token: action.payload.token }),
+      }
+    case SIGN_OUT:
       return {
         ...state,
         loading: false,
