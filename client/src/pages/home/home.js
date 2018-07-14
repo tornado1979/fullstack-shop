@@ -76,9 +76,13 @@ class Home extends Component {
 Home.propTypes = {
   addItemToCart: propTypes.func.isRequired,
   fetchProducts: propTypes.func.isRequired,
-  JwtToken: propTypes.string.isRequired,
+  JwtToken: propTypes.string,
   orderItems: propTypes.array.isRequired, // eslint-disable-line
   products: propTypes.array.isRequired, // eslint-disable-line
+}
+
+Home.defaultProps = {
+  JwtToken: null,
 }
 
 const mapStateToProps = (state) => {

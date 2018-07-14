@@ -73,9 +73,13 @@ class Order extends Component {
 }
 
 Order.propTypes = {
-  JwtToken: propTypes.string.isRequired,
+  JwtToken: propTypes.string,
   orderItems: propTypes.array.isRequired, //eslint-disable-line
   removeItem: propTypes.func.isRequired,
+}
+
+Order.defaultProps = {
+  JwtToken: null,
 }
 
 const mapStateToProps = (state) => {

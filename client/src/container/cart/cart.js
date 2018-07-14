@@ -179,12 +179,16 @@ class Cart extends React.Component {
 }
 
 Cart.propTypes = {
-  JwtToken: propTypes.string.isRequired,
+  JwtToken: propTypes.string,
   classes: propTypes.shape().isRequired,
-  history: propTypes.shape().isRequired, // eslint-disable-line
-  orderItems: propTypes.shape().isRequired,
+  history: propTypes.shape().isRequired,
+  orderItems: propTypes.array.isRequired, // eslint-disable-line
   removeItemFromCart: propTypes.func.isRequired,
   updateCartItem: propTypes.func.isRequired,
+}
+
+Cart.defaultProps = {
+  JwtToken: null,
 }
 
 const mapStateToProps = (state) => {
