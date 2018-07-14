@@ -114,11 +114,26 @@ exports.signUp = function(req, res, next) {
     },
       function(error, newUser) {
 
-        const token = createUserWebToken(newUser)
-        // send notification
-        bot.sendMessage('598666449',`New user just created: ${newUser.email}.`)
+      const token = createUserWebToken(newUser)
+      // send notification
+      const  new_user = {
+        id: newUser._id,
+        email: newUser.email,
+        companyName: newUser.companyName,
+        streetAddress: newUser.streetAddress,
+        townCity: newUser.townCity,
+        stateCountry: newUser.stateCountry,
+        postcode: newUser.postcode,
+        phone: newUser.phone,
+        country: newUser.country,}
 
-        return res.json({success: true, message: "New user added!", token: token})
+      bot.sendMessage('598666449',`New user just created: ${JSON.stringify(new_user)}.`)
+
+      return res.json({
+        success: true,
+        message: "New user added!",
+        token: token,
+        user: new_user})
     })
   })
 }
