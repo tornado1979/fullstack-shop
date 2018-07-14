@@ -11,9 +11,8 @@ import {
   RECEIVE_CART_FAIL,
 } from '../actions/cart.action'
 
-import config from '../../../clientConfig'
-
-const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
+// import config from '../../../clientConfig'
+// const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
 
 export const requestCart = () => {
   return {
@@ -51,7 +50,8 @@ export const receiveCartFail = (err) => {
 export const fetchCart = (JwtToken) => async (dispatch) => {
   dispatch(requestCart())
   try {
-    const response = await fetch(`${server}cart`,
+    // const response = await fetch(`${server}cart`,
+    const response = await fetch('cart',
       {
         headers: {
           Accept: 'application/json',
@@ -61,16 +61,6 @@ export const fetchCart = (JwtToken) => async (dispatch) => {
         method: 'GET',
       },
     )
-    /* const response = await fetch('cart',
-      {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          authorization: JwtToken,
-        },
-        method: 'GET',
-      },
-    ) */
 
     // get status
     // if status is not 200,304
@@ -78,7 +68,6 @@ export const fetchCart = (JwtToken) => async (dispatch) => {
     const statuses = [200, 304]
     if (statuses.includes(response.status)) {
       const result = await response.json()
-      console.log('cart items', result)
       dispatch(receiveCart(result))
       dispatch(receiveCartSuccess())
     } else {
@@ -100,17 +89,6 @@ export const cartActionFail = (err) => {
 export const addItemToCart = (payload, JwtToken) => async (dispatch) => {
   try {
     // const response = await fetch(`${server}cart/add`,
-    const response = await fetch(`${server}cart/add`,
-      {
-        body: JSON.stringify(payload),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          authorization: JwtToken,
-        },
-        method: 'POST',
-      })
-    /*
     const response = await fetch('cart/add',
       {
         body: JSON.stringify(payload),
@@ -121,7 +99,7 @@ export const addItemToCart = (payload, JwtToken) => async (dispatch) => {
         },
         method: 'POST',
       })
-*/
+
     const result = await response.json()
 
     // dispatch add item to cart
@@ -141,16 +119,7 @@ export const addItemToCart = (payload, JwtToken) => async (dispatch) => {
 
 export const updateCartItem = (payload) => async (dispatch) => {
   try {
-    const response = await fetch(`${server}cart/update`,
-      {
-        body: JSON.stringify(payload),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      })
-    /*
+    // const response = await fetch(`${server}cart/update`,
     const response = await fetch('cart/update',
       {
         body: JSON.stringify(payload),
@@ -160,7 +129,7 @@ export const updateCartItem = (payload) => async (dispatch) => {
         },
         method: 'POST',
       })
-*/
+
     const result = await response.json()
 
     dispatch({
@@ -174,17 +143,7 @@ export const updateCartItem = (payload) => async (dispatch) => {
 
 export const removeItemFromCart = (payload, JwtToken) => async (dispatch) => {
   try {
-    const response = await fetch(`${server}cart/remove`,
-      {
-        body: JSON.stringify(payload),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          authorization: JwtToken,
-        },
-        method: 'POST',
-      })
-    /*
+    // const response = await fetch(`${server}cart/remove`,
     const response = await fetch('cart/remove',
       {
         body: JSON.stringify(payload),
@@ -195,7 +154,7 @@ export const removeItemFromCart = (payload, JwtToken) => async (dispatch) => {
         },
         method: 'POST',
       })
-*/
+
     const result = await response.json()
     console.log('remove item result', result)
     dispatch({
