@@ -73,7 +73,7 @@ const appreducers = combineReducers({
 })
 
 const rootreducers = (state, action) => {
-  if (action.type === 'LOG_OUT') {
+  if (action.type === 'SIGN_OUT') {
     state = undefined // eslint-disable-line
   }
 

@@ -11,7 +11,10 @@ import {
 const initialState = {
   loading: false,
   message: '',
-  user: {},
+  user: {
+    email: null,
+    token: null,
+  },
 }
 
 export const reducers = (state = initialState, action) => {
@@ -50,10 +53,6 @@ export const reducers = (state = initialState, action) => {
     case SIGN_OUT:
       return {
         ...state,
-        loading: false,
-        message: action.payload.message,
-        success: action.payload.success,
-        user: Object.assign({}, { email: action.payload.email, token: action.payload.token }),
       }
     case AUTH_FAIL:
       return {

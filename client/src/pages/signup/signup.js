@@ -25,7 +25,7 @@ class SignUp extends Component {
     // dispatch AUTH_START
     // add callback function to redirect user after sign up ?? (dont know yet, where to redirect)
     this.props.signup(formValues, () => {
-      console.log('redirect user after sign up')
+      this.props.history.push('/')
     })
   }
 

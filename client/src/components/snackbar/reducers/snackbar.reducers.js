@@ -6,7 +6,7 @@ import {
 const initState = {
   message: '',
   open: false,
-  variant: '',
+  variant: 'info',
 }
 export const reducers = (state = initState, action) => {
   switch (action.type) {
