@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 
-import { getFormValues } from './selectors/form.selectors'
+import { getUser } from './selectors/auth.selectors'
 
 import {
   renderSelectField,
@@ -23,8 +23,7 @@ import './signupForm.scss'
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const asyncValidate = (values /* , dispatch */) => {
-  console.log('formvalues-async', values)
+const asyncValidate = (/* values, dispatch */) => {
   return sleep(1000).then(() => {
     // simulate server latency
     // eslint-disable-next-line no-throw-literal
@@ -79,7 +78,7 @@ const styles = {
   },
 }
 
-let ClientForm = ({classes, clientInfoForm, handleSubmit, pristine, reset, serverMessage, submitting}) => { // eslint-disable-line
+let ClientForm = ({classes, handleSubmit, pristine, reset, serverMessage, submitting, user}) => { // eslint-disable-line
   return (
     <div className="form-wrap">
       <form onSubmit={handleSubmit}>
@@ -263,14 +262,17 @@ ClientForm.proTypes = {
 }
 
 ClientForm = reduxForm({
+  asyncValidate,
+  enableReinitialize: true,
   form: 'clientInfoForm',
   validate,
-  asyncValidate,
 })(ClientForm)
 
 const mapStateToProps = (state) => {
   return {
-    clientInfoForm: (formName) => getFormValues(formName, state),
+    initialValues: getUser(state), // Init form with user values from state
+    user: getUser(state),
   }
 }
+
 export default connect(mapStateToProps, null)(withStyles(styles)(ClientForm))
