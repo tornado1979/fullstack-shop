@@ -48,7 +48,7 @@ export const reducers = (state = initialState, action) => {
         loading: false,
         message: action.payload.message,
         success: action.payload.success,
-        user: Object.assign({}, { email: action.payload.email, token: action.payload.token }),
+        user: Object.assign({}, { ...action.payload.user }),
       }
     case SIGN_OUT:
       return {
