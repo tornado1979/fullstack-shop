@@ -33,6 +33,8 @@ exports.signUp = function(req, res, next) {
 
   // destruct values from req.body object
   const {
+    firstName,
+    lastName,
     companyName,
     streetAddress,
     townCity,
@@ -49,6 +51,20 @@ exports.signUp = function(req, res, next) {
     return res
     .status(422)
     .send({success: false, message: 'You must provide email and password.'})
+  }
+
+  //check if user provider firstname
+  if(!firstName) {
+    return res
+      .status(422)
+      .send({success: false, message: 'You must providde first name'})
+  }
+
+  //check if user provides lastname
+  if(!lastName) {
+    return res
+      .status(422)
+      .send({success: false, message: 'You must provide lastname'})
   }
 
   // check if user provides required data
@@ -102,6 +118,8 @@ exports.signUp = function(req, res, next) {
     }
 
     User.create({
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
       companyName: companyName,
@@ -118,6 +136,8 @@ exports.signUp = function(req, res, next) {
       // send notification
       const  new_user = {
         id: newUser._id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         email: newUser.email,
         companyName: newUser.companyName,
         streetAddress: newUser.streetAddress,
@@ -125,14 +145,15 @@ exports.signUp = function(req, res, next) {
         stateCountry: newUser.stateCountry,
         postcode: newUser.postcode,
         phone: newUser.phone,
-        country: newUser.country,}
+        country: newUser.country,
+        token: token,
+      }
 
       bot.sendMessage('598666449',`New user just created: ${JSON.stringify(new_user)}.`)
 
       return res.json({
         success: true,
         message: "New user added!",
-        token: token,
         user: new_user})
     })
   })
