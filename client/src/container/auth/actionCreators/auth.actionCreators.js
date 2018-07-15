@@ -52,8 +52,11 @@ export const signup = (formValues, callback) => async (dispatch) => {
       })
 
     const result = await response.json()
+
     // store user data & token on localStorage
-    localStorage.setItem('user', JSON.stringify(result))
+    const { user } = result
+    localStorage.setItem('user', JSON.stringify(user))
+
     dispatch(signupSuccess(result))
     // call the callback function to redirect the user to '/'
     callback()
@@ -120,7 +123,9 @@ export const auth = (data, callback) => {
       if (statuses.includes(response.status)) {
         const result = await response.json()
         // store user data & token on localStorage
-        localStorage.setItem('user', JSON.stringify(result))
+        const { user } = result
+        localStorage.setItem('user', JSON.stringify(user))
+
         dispatch(authSuccess(result))
         // call the callback function to redirect the user to '/'
         callback()
