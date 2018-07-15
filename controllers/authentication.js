@@ -21,12 +21,28 @@ exports.signin = function(req, res, next) {
   bot.sendMessage('598666449', `User ${req.user.email} just loged in.`);
   // create jwt user token
   const token = createUserWebToken(req.user)
+
+  // destruct user object to end to the client
+  const  login_user = {
+    id: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    email: req.user.email,
+    companyName: req.user.companyName,
+    streetAddress: req.user.streetAddress,
+    townCity: req.user.townCity,
+    stateCountry: req.user.stateCountry,
+    postcode: req.user.postcode,
+    phone: req.user.phone,
+    country: req.user.country,
+    token: token,
+  }
+
   // return messaage to the client
-  res.json({
-     'token': token,
-     email: req.user.email,
+  res.send({
      successs: true,
-     message: 'Welcome, feel free to play around.'
+     message: 'Welcome, feel free to play around.',
+     user: login_user,
      })
 }
 exports.signUp = function(req, res, next) {
