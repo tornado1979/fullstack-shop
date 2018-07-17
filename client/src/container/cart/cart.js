@@ -19,7 +19,7 @@ import {
   updateCartItem,
 } from './actionCreators/cart.actionCreators'
 
-import { getOrderItems } from '../../globalSelectors/globalSelectors'
+import { getCart } from '../../globalSelectors/globalSelectors'
 
 import { Select } from '../../components/select'
 import { getUser } from '../../container/auth/selectors/auth.selectors'
@@ -195,7 +195,7 @@ const mapStateToProps = (state) => {
   const user = getUser(state)
   return {
     JwtToken: user.token,
-    orderItems: getOrderItems(state),
+    orderItems: getCart(state),
   }
 }
 

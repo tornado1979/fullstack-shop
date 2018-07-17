@@ -11,7 +11,7 @@ import {
 } from '../container/cart/selectors/cart.selectors'
 
 
-export const getOrderItems = createSelector(
+export const getCart = createSelector(
   [productsState, cartState], // get states
   (prState, crtState) => [getProducts(prState), getCartItems(crtState)],
   (products, cartItems) => {

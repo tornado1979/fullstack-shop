@@ -11,7 +11,7 @@ import config from '../../clientConfig'
 import { getProducts } from './selectors/home.selectors'
 import { fetchProducts } from './actionCreators/home.actionCreators'
 import { addItemToCart } from '../../container/cart/actionCreators/cart.actionCreators'
-import { getOrderItems } from '../../globalSelectors/globalSelectors'
+import { getCart } from '../../globalSelectors/globalSelectors'
 import { getUser } from '../../container/auth/selectors/auth.selectors'
 
 const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
   const user = getUser(state)
   return {
     JwtToken: user.token,
-    orderItems: getOrderItems(state),
+    orderItems: getCart(state),
     products: getProducts(state),
   }
 }
