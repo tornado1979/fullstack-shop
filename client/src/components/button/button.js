@@ -20,11 +20,17 @@ const styles = {
   },
 }
 
-const CustomButton = ({ classes, disabled, message }) => {
+const CustomButton = ({
+  classes,
+  disabled,
+  handleClick,
+  message,
+}) => {
   return (
     <Button
       className={classes.button}
       disabled={disabled}
+      onClick={handleClick}
     >
       {message}
     </Button>
@@ -34,6 +40,7 @@ const CustomButton = ({ classes, disabled, message }) => {
 CustomButton.propTypes = {
   classes: propTypes.shape().isRequired,
   disabled: propTypes.bool,
+  handleClick: propTypes.func.isRequired, // coming from e.g. order.js
   message: propTypes.string.isRequired,
 }
 CustomButton.defaultProps = {
