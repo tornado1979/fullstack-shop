@@ -29,11 +29,11 @@ class SignUp extends Component {
   handleSubmited(formValues) {
     const {
       history,
-      signup,
+      register,
     } = this.props
     // dispatch AUTH_START
     // add callback function to redirect user after sign up ?? (dont know yet, where to redirect)
-    signup(formValues, () => {
+    register(formValues, () => {
       history.push('/')
     })
   }
@@ -58,7 +58,7 @@ class SignUp extends Component {
 SignUp.propTypes = {
   history: propTypes.shape().isRequired,
   isUserLoggedIn: propTypes.bool.isRequired,
-  signup: propTypes.func.isRequired,
+  register: propTypes.func.isRequired,
   serverMessage: propTypes.string.isRequired,
 }
 
@@ -70,7 +70,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  signup: (formValues, redirection) => signup(formValues, redirection),
+  register: (formValues, redirection) => signup(formValues, redirection),
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
