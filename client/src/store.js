@@ -1,4 +1,9 @@
-import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
+import {
+  combineReducers,
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux'
 import thunk from 'redux-thunk'
 
 // form reducers
@@ -9,7 +14,7 @@ import { reducer as products } from './pages/home/reducers/home.reducers'
 import { reducers as cart } from './container/cart/reducers/cart.reducers'
 import { reducers as snackbar } from './components/snackbar/reducers/snackbar.reducers'
 import { reducers as user } from './container/auth/reducers/auth.reducers'
-
+import { reducers as orders } from './components/order/reducers/order.reducers'
 // middlewares
 import logger from './middlewares/logger'
 import { handleSnackBar } from './middlewares/snackbar'
@@ -24,6 +29,9 @@ const userSaved = localStorage.getItem('user') !== null ? JSON.parse(localStorag
 // Initial state
 const initialState = {
   cart: {
+    items: [],
+  },
+  orders: {
     items: [],
   },
   products: {
@@ -77,6 +85,7 @@ const composedEnhancers = compose(
 const appreducers = combineReducers({
   cart,
   form: formReducer,
+  orders,
   products,
   snackbar,
   user,
