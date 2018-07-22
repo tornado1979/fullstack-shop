@@ -8,10 +8,11 @@ import Icon from '@material-ui/core/Icon'
 import Button from '@material-ui/core/Button'
 
 // global selector
-import { getOrderItems } from '../../globalSelectors/globalSelectors'
+import { getCart } from '../../globalSelectors/globalSelectors'
 
 import { removeItemFromCart } from '../../container/cart/actionCreators/cart.actionCreators'
 import { getUser } from '../../container/auth/selectors/auth.selectors'
+import CustomButton from '../button/button'
 
 import './order.scss'
 
@@ -39,8 +40,11 @@ class Order extends Component {
   }
 
   render() {
-    const { orderItems } = this.props
-
+    const {
+      orderItems,
+      handleSubmit,
+    } = this.props
+    const message = orderItems.length > 0 ? 'Submit Order' : 'cart is empty'
     return (
       <div className="order-wrapper">
         <div>
@@ -64,6 +68,17 @@ class Order extends Component {
                 <td />
                 <td />
               </tr>
+              <tr>
+                <td />
+                <td />
+                <td>
+                  <CustomButton
+                    disabled={!(orderItems.length > 0)}
+                    handleClick={handleSubmit}
+                    message={message}
+                  />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -73,6 +88,7 @@ class Order extends Component {
 }
 
 Order.propTypes = {
+  handleSubmit: propTypes.func.isRequired, // coming from checkout.js
   JwtToken: propTypes.string,
   orderItems: propTypes.array.isRequired, //eslint-disable-line
   removeItem: propTypes.func.isRequired,
@@ -86,7 +102,7 @@ const mapStateToProps = (state) => {
   const user = getUser(state)
   return {
     JwtToken: user.token,
-    orderItems: getOrderItems(state),
+    orderItems: getCart(state),
   }
 }
 
