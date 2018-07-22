@@ -7,9 +7,9 @@ import {
   getMessage,
   getVariant,
   isSnackBarOpen,
-} from '../../components/snackbar/selectors/snackbar.selectors'
+} from '../snackbar/selectors/snackbar.selectors'
 
-import WrapperSnackBar from '../../components/snackbar/snackbar'
+import WrapperSnackBar from '../snackbar/snackbar'
 
 import './footer.scss'
 import { MainBlock } from '../mainBlock'

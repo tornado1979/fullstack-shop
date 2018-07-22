@@ -9,14 +9,16 @@ export const renderTextField = ({
   fullWidth = false,
   ...custom
 } = {}) => {
-  return (<TextField
-    error={touched && error}
-    fullWidth={fullWidth}
-    label={((touched && error) && (`${label}-${error}`)) || label}
-    multiline={custom.multiline}
-    {...input}
-    {...custom}
-  />)
+  return (
+    <TextField
+      error={touched && error}
+      fullWidth={fullWidth}
+      label={((touched && error) && (`${label}-${error}`)) || label}
+      multiline={custom.multiline}
+      {...input}
+      {...custom}
+    />
+  )
 }
 
 renderTextField.propTypes = {

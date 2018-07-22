@@ -16,16 +16,25 @@ import {
 
 class SignUp extends Component {
   componentDidMount() {
-    if (this.props.isUserLoggedIn) {
-      this.props.history.push('/checkout')
+    const {
+      history,
+      isUserLoggedIn,
+    } = this.props
+
+    if (isUserLoggedIn) {
+      history.push('/checkout')
     }
   }
 
   handleSubmited(formValues) {
+    const {
+      history,
+      signup,
+    } = this.props
     // dispatch AUTH_START
     // add callback function to redirect user after sign up ?? (dont know yet, where to redirect)
-    this.props.signup(formValues, () => {
-      this.props.history.push('/')
+    signup(formValues, () => {
+      history.push('/')
     })
   }
 

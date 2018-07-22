@@ -8,7 +8,7 @@ import Home from '../../pages/home/home'
 import Checkout from '../../pages/checkout/checkout'
 import Login from '../../pages/login/login'
 import SignOut from '../../container/auth/signOut'
-import PrivateRoute from '../../components/privateRoute/index'
+import PrivateRoute from '../privateRoute/index'
 import SignUp from '../../pages/signup/signup'
 
 export const Routes = () => {

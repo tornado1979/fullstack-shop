@@ -16,8 +16,13 @@ import './product.scss'
 class Product extends Component {
   getButton(isUserLoggedIn, click, productId, isItemOnBasket) {
     if (!isUserLoggedIn) {
-      return <Link to="/login">Login to add </Link>
-    } else if (isItemOnBasket) {
+      return (
+        <Link to="/login">
+          Login to add
+        </Link>
+      )
+    }
+    if (isItemOnBasket) {
       return (
         <Button disabled onClick={() => click({ productId })}>
            it is in cart
@@ -30,6 +35,7 @@ class Product extends Component {
         Add
       </Button>)
   }
+
   render() {
     const {
       click,
@@ -43,10 +49,18 @@ class Product extends Component {
 
     return (
       <div className="product">
-        <Icon>cart</Icon>
-        <div className="product-img"><img alt="" src={path} /> </div>
-        <div className="product-name">{name}</div>
-        <div className="product-descr">{description}</div>
+        <Icon>
+          cart
+        </Icon>
+        <div className="product-img">
+          <img alt="" src={path} />
+        </div>
+        <div className="product-name">
+          {name}
+        </div>
+        <div className="product-descr">
+          {description}
+        </div>
         <div className="add-to-cart">
           {this.getButton(isUserLoggedIn, click, productId, isItemOnBasket)}
         </div>

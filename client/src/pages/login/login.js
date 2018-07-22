@@ -13,20 +13,34 @@ import { isUserLogedIn } from '../../container/auth/selectors/auth.selectors'
 
 class Login extends Component {
   componentDidMount() {
-    if (this.props.isUserLoggedIn) {
-      this.props.history.push('/checkout')
+    const {
+      history,
+      isUserLoggedIn,
+    } = this.props
+
+    if (isUserLoggedIn) {
+      history.push('/checkout')
     }
   }
 
   handleSubmited(values) {
+    const {
+      history,
+      login,
+    } = this.props
+
     // dispatch AUTH_START
-    this.props.login(values, () => {
-      this.props.history.push('/')
+    login(values, () => {
+      history.push('/')
     })
   }
 
   goto() {
-    this.props.history.push('/signup')
+    const {
+      history,
+    } = this.props
+
+    history.push('/signup')
   }
 
   render() {

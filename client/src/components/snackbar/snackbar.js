@@ -12,7 +12,7 @@ import WarningIcon from '@material-ui/icons/Warning'
 import { withStyles /* , MuiThemeProvider, createMuiTheme, withTheme */} from '@material-ui/core/styles'
 import classNames from 'classnames'
 
-import { hideSnackBar } from '../snackbar/actionCreators/snackbar.actionCreators'
+import { hideSnackBar } from './actionCreators/snackbar.actionCreators'
 
 /*
 const theme = createMuiTheme({
