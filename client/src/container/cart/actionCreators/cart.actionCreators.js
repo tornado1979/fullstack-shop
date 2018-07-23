@@ -2,6 +2,10 @@ import fetch from 'cross-fetch'
 
 import {
   ADD_ITEM_TO_CART,
+  CLEAR_CART,
+  REQUEST_CLEAR_CART,
+  CLEAR_CART_FAIL,
+  CLEAR_CART_SUCCESS,
   REMOVE_ITEM_FROM_CART,
   UPDATE_CART_ITEM,
   CART_ACTION_FAIL,
@@ -13,6 +17,70 @@ import {
 
 // import config from '../../../clientConfig'
 // const server = process.env.NODE_ENV === 'development' ? config.server_dev : config.server_prod
+
+export const clearCartSuccess = () => {
+  return {
+    payload: {
+      isFetching: false,
+    },
+    type: CLEAR_CART_SUCCESS,
+  }
+}
+
+export const clearCartFail = (err) => {
+  return {
+    payload: err,
+    type: CLEAR_CART_FAIL,
+  }
+}
+
+const requestClearCart = () => {
+  return {
+    payload: {
+      isFetching: true,
+    },
+    type: REQUEST_CLEAR_CART,
+  }
+}
+// clear cart items after SUBMIT_ORDER_SUCCESS
+const clearCart = (message) => {
+  return {
+    payload: {
+      items: [],
+      message,
+      success: true,
+    },
+    type: CLEAR_CART,
+  }
+}
+
+// main action for cler cart
+export const cleanCart = (JwtToken) => {
+  return async (dispatch) => {
+    dispatch(requestClearCart())
+    // call API
+    // const response = await fetch(`${server}cart/clear`,
+    const response = await fetch('cart/clear',
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: JwtToken,
+        },
+        method: 'POST',
+      },
+    )
+      .catch(err => {
+        return dispatch(clearCartFail(err))
+      })
+
+
+    // if everything is ok, execute success
+    const res = response.json()
+    dispatch(clearCart(res))
+    dispatch(clearCartSuccess())
+  }
+}
 
 export const requestCart = () => {
   return {
@@ -108,7 +176,7 @@ export const addItemToCart = (payload, JwtToken) => async (dispatch) => {
       type: ADD_ITEM_TO_CART,
     })
   } catch (err) {
-    dispatch(cartActionFail(err))
+    dispatch(cartActionFail(err.message))
   }
 
   return {

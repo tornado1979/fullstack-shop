@@ -10,6 +10,10 @@ import {
   SUBMIT_ORDER_FAIL,
 } from '../actions/order.actions'
 
+import { cleanCart } from '../../../container/cart/actionCreators/cart.actionCreators'
+
+// CLEAR CART AFTER SUBMIT_ORDER_SUCCESS
+
 // SEND ORDER //
 export const submitOrder = (orderData) => {
   return {
@@ -62,6 +66,7 @@ export const sendOrder = (data, JwtToken) => {
       const res = await response.json()
       dispatch(submitOrder(res))
       dispatch(submitOrderSuccess())
+      dispatch(cleanCart(JwtToken)) // clean cart items after submit_order_success
     } else {
       dispatch(submitOrderFail(response.statusText))
     }

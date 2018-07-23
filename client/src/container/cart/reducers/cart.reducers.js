@@ -1,5 +1,7 @@
 import {
   ADD_ITEM_TO_CART,
+  CART_ACTION_FAIL,
+  CLEAR_CART,
   REMOVE_ITEM_FROM_CART,
   UPDATE_CART_ITEM,
   REQUEST_CART,
@@ -15,6 +17,16 @@ const initialState = {
 
 export const reducers = (state = initialState, action) => {
   switch (action.type) {
+    case CART_ACTION_FAIL:
+      return {
+        ...state,
+        message: action.payload,
+        success: false,
+      }
+    case CLEAR_CART:
+      return {
+        ...action.payload,
+      }
     case REQUEST_CART:
       return state
     case RECEIVE_CART:
