@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const controller = require('../controllers/cart')
 
 var passport = require('passport')
 const requireAuthentication = passport.authenticate('jwt', {session: false})
@@ -35,12 +36,19 @@ router.all('*', requireAuthentication)
 
 router.get('/', requireAuthentication, callback)
 
+router.post('/clear', requireAuthentication, controller.clear)
+
 router.get('/history', (req,res, next) => {
   res.send('user cart history')
 })
+
 /* POST add item to cart*/
 router.post('/add', (req,res,next) => {
-  Cart.create(req.body, function (err, post) {
+  // add clientId on the product object
+  var userId = req.user._id
+  var cartProduct = { ...req.body, clientId: userId }
+
+  Cart.create(cartProduct, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
