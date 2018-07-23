@@ -3,8 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 const config = require('./config');
 
 const indexRouter = require('./routes/index');
@@ -12,6 +13,7 @@ const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 const storesRouter = require('./routes/stores')
 const cartRouter = require('./routes/cart')
+const ordersRouter = require('./routes/orders');
 
 // Set up Mongoose
 const dbconn = process.env.NODE_ENV === 'production' ? config.db : config.db_dev;
@@ -20,7 +22,7 @@ const dbconn = process.env.NODE_ENV === 'production' ? config.db : config.db_dev
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
 mongoose.connect(dbconn, function (err, res) {
-  if (err) { 
+  if (err) {
     console.log ('ERROR connecting to: ' + dbconn + '. ' + err);
   } else {
     console.log ('Succeeded connected to: ' + dbconn);
@@ -42,7 +44,8 @@ app.use(cookieParser());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-
+// All incoming requests will be parsed as json
+app.use(bodyParser.json({type:'*/*'}));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
@@ -51,6 +54,8 @@ app.use('/stores', storesRouter)
 // Add a virtual path point to real path 'public/images/products'
 app.use('/pr', express.static('public/images/products'));
 app.use('/cart', cartRouter);
+// use /orders
+app.use('/orders', ordersRouter)
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
