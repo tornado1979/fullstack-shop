@@ -14,8 +14,7 @@ import {
 export const submitOrder = (orderData) => {
   return {
     payload: {
-      order: orderData,
-      isFetching: true,
+      orderData,
     },
     type: SUBMIT_ORDER,
   }
