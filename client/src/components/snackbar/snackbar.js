@@ -26,35 +26,35 @@ const theme = createMuiTheme({
 }) */
 
 const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
   error: ErrorIcon,
   info: InfoIcon,
+  success: CheckCircleIcon,
+  warning: WarningIcon,
 }
 
 const styles1 = theme => ({
-  success: {
-    backgroundColor: 'green',
-  },
   error: {
     backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  warning: {
-    backgroundColor: 'orange',
   },
   icon: {
     fontSize: 20,
   },
   iconVariant: {
-    opacity: 0.9,
     marginRight: theme.spacing.unit,
+    opacity: 0.9,
+  },
+  info: {
+    backgroundColor: theme.palette.primary.dark,
   },
   message: {
-    display: 'flex',
     alignItems: 'center',
+    display: 'flex',
+  },
+  success: {
+    backgroundColor: 'green',
+  },
+  warning: {
+    backgroundColor: 'orange',
   },
 })
 
@@ -65,7 +65,6 @@ class WrapperSnackBar extends Component {
   }
 
   render() {
-    console.log('properties', this.props)
     const {
       className,
       classes,
@@ -108,8 +107,8 @@ class WrapperSnackBar extends Component {
 }
 
 WrapperSnackBar.propTypes = {
-  className: propTypes.string, // eslint-disable-line
   classes: propTypes.shape().isRequired,
+  className: propTypes.string, // eslint-disable-line
   closeSnackBar: propTypes.func.isRequired,
   message: propTypes.string.isRequired,
   open: propTypes.bool.isRequired,

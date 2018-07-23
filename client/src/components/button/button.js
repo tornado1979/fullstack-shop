@@ -8,15 +8,15 @@ import { withStyles } from '@material-ui/core/styles'
 // We can inject some CSS into the DOM.
 const styles = {
   button: {
+    '&:hover': {
+      background: 'blue',
+    },
     background: '#4CAF50',
     border: 0,
     borderRadius: 3,
     color: 'white',
     height: 48,
     padding: '0 30px',
-    '&:hover': {
-      background: 'blue',
-    },
   },
 }
 

@@ -21,7 +21,6 @@ class Checkout extends Component {
     } = this.props
 
     // TODO: check the integrity of the cartItems data
-    console.log('tokennn')
     this.props.sendOrder(cartItems, JwtToken)
   }
 
@@ -43,8 +42,8 @@ class Checkout extends Component {
 }
 
 Checkout.propTypes = {
-  cartItems: propTypes.array.isRequired, // eslint-disable-line
   JwtToken: propTypes.string,
+  cartItems: propTypes.array.isRequired, // eslint-disable-line
   sendOrder: propTypes.func.isRequired,
 }
 

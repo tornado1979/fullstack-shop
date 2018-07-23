@@ -62,16 +62,16 @@ const validate = formValues => {
 }
 
 const styles = {
+  checked: {},
   root: {
-    color: green[600],
     '&$checked': {
       color: green[500],
     },
+    color: green[600],
   },
-  checked: {},
   size: {
-    width: 40,
     height: 40,
+    width: 40,
   },
   sizeIcon: {
     fontSize: 20,
@@ -207,8 +207,8 @@ let ClientForm = ({classes, handleSubmit, pristine, reset, serverMessage, submit
               control={
                 <Checkbox
                   classes={{
-                    root: classes.root,
                     checked: classes.checked,
+                    root: classes.root,
                   }}
                   color="primary"
                   value="checkedB"
