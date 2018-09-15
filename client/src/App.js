@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import './App.scss'
 
 import Header from './components/header/header'
-import Footer from './components/footer/footer'
+import Footer from './components/footer'
 import { Routes } from './components/routes/routes'
 
 // const server = 'https://damp-brook-72767.herokuapp.com' // Heroku deployed application url
