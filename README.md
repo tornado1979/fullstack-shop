@@ -1,4 +1,4 @@
-# fullstack-shop
+# fullstack-shop.
 
 In a few words :
 
@@ -21,6 +21,9 @@ In order to work locally needs some changes, and run dev serve r& express server
 
   ![run local](readme_imgs/react-expres-db-loca.png)
 
+
+  New you should get the updated frontpage:
+  ![new frontpage](readme_imgs/grocery-frontpage.jpg)
 
 - Tools that need to sync and work together
   - Heroku
@@ -56,8 +59,24 @@ In order to work locally needs some changes, and run dev serve r& express server
 	 4. cross our fingers and open the webpage on Heroku.
  
 
-  ![run on Heroku](readme_imgs/react-expres-db-on-heroku.png)
+
+- Home page - products page
+
+  ![run on Heroku](readme_imgs/heroku-front-page.jpg)
   
+- Login page
+  ![login](readme_imgs/heroku-login.jpg)
+
+- Signup page
+  ![register](readme_imgs/heroku-signup.jpg)
+
+- Checkout page
+  ![checkout](readme_imgs/heroku-checkout.jpg)
+
+- TelegramX - Bot auto messages, after user login, signup, order, so far.
+  ![checkout](readme_imgs/telegramX-bot.jpg)
+
+- Products json
   ![expressjs on Heroku](readme_imgs/backend-on-heroku.png)
 
   7. package.json property for testing localhost:
